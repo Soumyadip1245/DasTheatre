@@ -1,0 +1,25 @@
+section {
+  margin: 2.5rem auto;
+  width: 25%;
+  height: 100%;
+}
+input {
+  border: 1px solid black;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+.alert-message{
+  width: 20%;
+  margin: 2rem;
+  float: right;
+}
+@media (max-width: 500px){
+  section{
+    width: 70%;
+  }
+  div.btn-group.form-outline.mb-4{
+    display: flex;
+    flex-flow: column;
+  }
+  
+}

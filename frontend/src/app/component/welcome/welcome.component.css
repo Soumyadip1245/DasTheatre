@@ -1,0 +1,14 @@
+img{
+    display: block;
+    margin: 7rem auto;
+}
+.container-image{
+    background-color: #cff4fc;
+}
+@media (max-width: 500px){
+    img{
+        display: block;
+        margin: 7rem auto;
+        width: 100%;
+      }
+}

@@ -1,0 +1,469 @@
+<div class="row" style="
+margin-right: 0;
+">
+    <div class="col-3" id="navlink"> 
+      <!-- Tab navs -->
+      <div
+        class="nav flex-column nav-pills text-center"
+        id="v-pills-tab"
+        role="tablist"
+        aria-orientation="vertical"
+      >
+        <a
+          class="nav-link active"
+          id="v-pills-home-tab"
+          data-mdb-toggle="pill"
+          href="#v-pills-home"
+          role="tab"
+          aria-controls="v-pills-home"
+          aria-selected="true"
+          >Movies</a
+        >
+        <a
+          class="nav-link"
+          id="v-pills-profile-tab"
+          data-mdb-toggle="pill"
+          href="#v-pills-profile"
+          role="tab"
+          aria-controls="v-pills-profile"
+          aria-selected="false"
+          >Seat Chart</a
+        >
+        <a
+          class="nav-link"
+          id="v-pills-messages-tab"
+          data-mdb-toggle="pill"
+          href="#v-pills-messages"
+          role="tab"
+          aria-controls="v-pills-messages"
+          aria-selected="false"
+          >Booking</a
+        >
+        <a
+          class="nav-link"
+          id="v-pills-messages-tab"
+          data-mdb-toggle="pill"
+          href="#v-pills-search"
+          role="tab"
+          aria-controls="v-pills-search"
+          aria-selected="false"
+          >Book</a
+        >
+        <a
+          class="nav-link"
+          id="v-pills-bill-tab"
+          data-mdb-toggle="pill"
+          href="#v-pills-bill"
+          role="tab"
+          aria-controls="v-pills-bill"
+          aria-selected="false"
+          >Invoice</a
+        >
+      </div>
+      <!-- Tab navs -->
+    </div>
+  
+    <div class="col-9">
+      <!-- Tab content -->
+      <div class="tab-content" id="v-pills-tabContent">
+        <div
+          class="tab-pane fade show active"
+          id="v-pills-home"
+          role="tabpanel"
+          aria-labelledby="v-pills-home-tab"
+        >
+        <div [ngClass]="className" role="alert">
+          Movie Selected
+        </div>
+          <h1 class="text-center">Movie List</h1>
+          <div class="input-search">
+           <!--  <div class="input-group">
+              <div class="form-outline" style="width: 20%;margin: 0;">
+                <input type="search" id="form1" class="form-control">
+                <label class="form-label" for="form1" style="margin-left: 0px;">Search</label>
+              <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 47.2px;"></div><div class="form-notch-trailing"></div></div></div>
+              <button type="button" class="btn btn-primary" fdprocessedid="5vayqx">
+                <i class="fas fa-search"></i>
+              </button>
+            </div> -->
+            <button (click)="buyouttrue()" style="float: right" type="button" class="btn btn-primary btn-floating">
+              <i class="fa-solid fa-rotate-right"></i>
+            </button>
+          </div>
+        
+
+          <div class="row itms itemcont">
+            <div  class="col-md-6 col-xs-6 col-sm-6 col-lg-6" *ngFor = "let item of movies" style="
+            margin-bottom: 2rem;
+        ">
+                <div (click)="getData(item._id)" class="movie-card" style="background-image: url({{item.image}})">
+                    <div class="movie-card__overlay"></div>
+                    <div class="movie-card__share">
+                        <button class="movie-card__icon" data-mdb-toggle="modal" data-mdb-target="#exampleModal1">
+                            <i style=" color :red" class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                        <button class="movie-card__icon">
+                            <i style=" color :red" class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                    <div class="movie-card__content">
+                        <div class="movie-card__header">
+                            <h1 class="movie-card__title">{{item.name}}</h1>
+                            <h4 class="movie-card__info">({{item.release}}) {{item.type}}</h4>
+                        </div>
+                        <p class="movie-card__desc">{{item.description}}</p>
+                    </div>
+                <div class="blur_back"></div>
+                </div>
+            </div>
+        
+        </div>
+
+
+
+
+          
+        </div>
+        <div
+          class="tab-pane fade"
+          id="v-pills-profile"
+          role="tabpanel"
+          aria-labelledby="v-pills-profile-tab"
+        >
+        <div style="display: block;margin: 0 auto 2rem auto;text-align: center;width: 40%" [ngClass]="className1" role="alert">
+          {{message}}
+        </div>
+        <button (click)="resetSeat()" type="button" class="btn btn-primary">Confirm Seats</button>
+        <section id="seats">
+        <div class="screen"></div>
+        <ul class="showcase">
+          <li>
+            <div class="seats2"></div>
+            <small style="margin-left: 1rem">Not Occupied</small>
+          </li>
+          <li>
+            <div class="seats2" style="background-color:white"></div>
+            <small  style="margin-left: 1rem">Occupied</small>
+          </li>    
+        </ul>
+        <div class="movie-container">
+         
+          <div class = "seatssuper" *ngFor = "let k of normal">
+            <a title={{k.Seat}} *ngIf = "k.available == false" (click)="seatbook(k._id)"  ><div  class="seats"></div></a>
+            <a  title={{k.Seat}} *ngIf = "k.available == true" aria-disabled="true"><div  style="background-color: white;cursor: progress;" class="seats"></div></a>
+          </div>
+            
+          
+    
+        </div>
+        <div class="premium-container">
+          <div class = "seatspremium" *ngFor = "let m of premium">
+            <a   title={{m.Seat}} *ngIf = "m.available == false" (click)="seatbook(m._id)" ><div   class="seats1"></div></a>
+            <a   title={{m.Seat}} *ngIf = "m.available == true" aria-disabled="true"><div  style="background-color: white;cursor: progress;" class="seats"></div></a>
+          </div>
+        </div>
+    </section>
+   
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+        <div
+          class="tab-pane fade"
+          id="v-pills-messages"
+          role="tabpanel"
+          aria-labelledby="v-pills-messages-tab"
+        >
+        <div class="input-group">
+          <div class="form-outline" style="
+          margin: 0;
+      ">
+            <input type="search" id="form1" class="form-control" [(ngModel)]="searchbar">
+            <label class="form-label" for="form1" style="margin-left: 0px;">Search</label>
+          <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 47.2px;"></div><div class="form-notch-trailing"></div></div></div>
+          <button type="button" class="btn btn-primary">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+        <div class="row">
+          <div class="col-xl-6 mb-4"  *ngFor = "let e of userDetails | filter: searchbar">
+            <div class="card" style = "box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center" style="
+                width: 100%;
+            ">
+                  <div class="d-flex align-items-center">
+                    <div class="ms-3">
+                      <p class="fw-bold mb-1">Name: {{e.name}}</p>
+                      <p class="text-muted mb-0">Email: {{e.email}}</p>
+                      <p class="text-muted mb-0">Movies: {{e.movie}}</p>
+                      <p class="text-muted mb-0">Mode of Payment: {{e.payment}}</p>
+                    </div>
+                  </div>
+                  <span class="badge rounded-pill badge-success">{{e.order}}</span>
+                </div>
+              </div>
+              <div class="card-footer border-0 bg-light p-2 d-flex justify-content-around">
+                <a class="btn btn-link m-0 text-reset" role="button" data-ripple-color="primary">Seats: {{e.seat}}</a>
+                <a class="btn btn-link m-0 text-reset" role="button" data-ripple-color="primary"><i class="fa-solid fa-sack-dollar"></i>₹ {{e.total}}</a>
+              </div>
+            </div>
+          </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+        <div
+          class="tab-pane fade"
+          id="v-pills-search"
+          role="tabpanel"
+          aria-labelledby="v-pills-search-tab"
+        >
+        <section>
+          
+        </section>
+        <div [ngClass]="className2" role="alert">
+          <h4 class="alert-heading">Thank You</h4>
+          <p>For Booking Ticket : {{uniqid}}, same is shared with you on your email: {{email}}</p>
+          <hr>
+          <p class="mb-0">Movie: {{namevalue}}</p>
+          <p class="mb-0" *ngFor = "let z of seat">Seat: {{z}}</p>
+          
+        </div>
+          <!-- Search content -->
+          <div class="card " style ="margin-top: 2rem; box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;">
+            <div class="card-body flex">
+              <h5 class="card-title">Bill </h5>
+              <button (click)="onSubmit()" type="button" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+         <section >
+          <div class="card "  style ="margin-top: 2rem; box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;">
+            <div class="card-body" style="
+            flex-flow: column;
+        ">
+              <h5 class="card-title">Details</h5>
+              <div class="input-flex">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Name</label>
+                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Name" [(ngModel)]="name">
+                </div> 
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Contact</label>
+                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Contact" [(ngModel)]="contact">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email</label>
+                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Email" [(ngModel)]="email">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Payment</label><br>
+                  <div class="btn-group">
+                    <input type="radio" class="btn-check" name="options" id="option1" value = "Cash" autocomplete="off" [(ngModel)]="payment" />
+                    <label class="btn btn-secondary" for="option1">Cash</label>
+                  
+                    <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" value = "Card" [(ngModel)]="payment"/>
+                    <label class="btn btn-secondary" for="option2">Card</label>
+                  
+                    <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off" value = "Online" [(ngModel)]="payment"/>
+                    <label class="btn btn-secondary" for="option3">Online</label>
+                  </div>
+                </div>
+            </div>
+            </div>
+           
+          </div>
+
+
+          <div class="card "  style ="margin-top: 2rem; box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;">
+            <div class="card-body" style="
+            flex-flow: column;
+        ">
+              <h5 class="card-title">Movie</h5>
+              <div class="input-flex">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Movie</label>
+                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Movie" value = {{namevalue}}>
+                </div> 
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Seat</label>
+                  <div class="dropdown">
+                    <a
+                      class="btn btn-primary dropdown-toggle"
+                      href="#"
+                      role="button"
+                      id="dropdownMenuLink"
+                      data-mdb-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Booked Seats
+                    </a>
+                  
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
+                      <li><a class="dropdown-item" *ngFor = "let i of seat">{{i}}</a></li>
+                    </ul>
+                  </div>
+
+
+
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Quantity</label>
+                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Quantity" value = {{seatcount}}>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Total</label>
+                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Total" value = {{grandTotal}}>
+                </div>
+            </div>
+            </div>
+           
+          </div>
+
+          <div  class="card " style="flex-flow: column; margin-top: 2rem; padding-bottom: 0; box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;margin-bottom: 1rem;">
+            <div class="card-body" style = "flex-flow: column;">
+              <h5 class="card-title">Confirmation</h5>
+              <section class="table-responsive">
+              <table class="table">
+                <thead style="background: #3b71ca;color: white;">
+                    <tr>
+                        <th>Name</th>
+                        <th>Movie</th>
+                        <th>Seat</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>{{name}}</th>
+                        <th>{{namevalue}}</th>
+                        <th><div class="dropdown">
+                          <a
+                            class="btn btn-primary dropdown-toggle"
+                            href="#"
+                            role="button"
+                            id="dropdownMenuLink"
+                            data-mdb-toggle="dropdown"
+                            aria-expanded="false"
+                          >
+                            Booked Seats
+                          </a>
+                        
+                          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
+                            <li><a class="dropdown-item" *ngFor = "let i of seat">{{i}}</a></li>
+                          </ul>
+                        </div></th>
+                        <th>{{grandTotal}}</th>
+                    </tr>
+                </tbody>
+              </table>
+            </section>
+
+            </div>
+            
+          </div>
+         </section>
+          
+        </div>
+        <div
+  class="tab-pane fade"
+  id="v-pills-bill"
+  role="tabpanel"
+  aria-labelledby="v-pills-bill-tab"
+>
+<button (click)="printPdf()" type="button" class="btn btn-primary btn-floating" >
+  <i style="
+  color: white;
+"class="fas fa-download"></i>
+</button>
+<main id="table">
+  <div class="card" id="table">
+<img
+src="../../../assets//images - copy.png"
+height="40"
+alt="MDB Logo"
+loading="lazy"
+style="margin-top: 8px;"
+/>
+    <div class="card-body mx-4" style="
+    padding-top: 0;
+">
+     
+      <div class="container">
+       
+        <p class="my-5 mx-5">Thank for your booking</p>
+        <div class="row">
+          <ul class="list-unstyled">
+            <li class="text-muted mt-1"><span class="text-black">Name: </span> {{name}}</li>
+            <li class="text-muted mt-1"><span class="text-black">Email: </span> {{email}}</li>
+            <li class="text-muted mt-1"><span class="text-black">Invoice: </span> {{uniqid}}</li>
+            
+          </ul>
+          <hr>
+          <div class="col-xl-10">
+            <span class="text-black">Movie: </span><p>{{namevalue}}</p>
+          </div>
+          <div class="col-xl-2">
+            <p class="float-end" *ngFor = "let o of seat"><span class="text-black">Seats: </span>{{o}}<br> 
+            </p>
+          </div>
+          <hr>
+        </div>
+        <hr style="border: 2px solid black;">
+        <div class="row text-black">
+  
+          <div class="col-xl-12">
+            <p class="float-end fw-bold">Total: {{grandTotal}}
+            </p>
+          </div>
+          <hr style="border: 2px solid black;">
+        </div>
+  
+      </div>
+    </div>
+  </div>
+</main>
+
+
+
+
+
+</div>
+      </div>
+    </div>
+  </div>
+
+  
+
+      

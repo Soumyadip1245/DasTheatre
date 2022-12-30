@@ -1,0 +1,165 @@
+<section>
+  <!-- Pills navs -->
+  <div [ngClass]="className" role="alert" >
+   {{message}}
+  </div>
+  <div [ngClass]="className1">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link active"
+        id="tab-login"
+        data-mdb-toggle="pill"
+        href="#pills-login"
+        role="tab"
+        aria-controls="pills-login"
+        aria-selected="true"
+        >Login</a
+      >
+    </li>
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link"
+        id="tab-register"
+        data-mdb-toggle="pill"
+        href="#pills-register"
+        role="tab"
+        aria-controls="pills-register"
+        aria-selected="false"
+        >Register</a
+      >
+    </li>
+  </ul>
+  <!-- Pills navs -->
+
+  <!-- Pills content -->
+  <div class="tab-content">
+    <div
+      class="tab-pane fade show active"
+      id="pills-login"
+      role="tabpanel"
+      aria-labelledby="tab-login"
+    >
+      <!-- Login Form -->
+      <form [formGroup]="loginform" autocomplete="off">
+        <div class="text-center mb-3">
+          <p>Sign in with:</p>
+          <button type="button" class="btn btn-secondary btn-floating mx-1">
+            <i class="fab fa-facebook-f"></i>
+          </button>
+
+          <button type="button" class="btn btn-secondary btn-floating mx-1">
+            <i class="fab fa-google"></i>
+          </button>
+
+          <button type="button" class="btn btn-secondary btn-floating mx-1">
+            <i class="fab fa-twitter"></i>
+          </button>
+
+          <button type="button" class="btn btn-secondary btn-floating mx-1">
+            <i class="fab fa-github"></i>
+          </button>
+        </div>
+
+        <p class="text-center">or:</p>
+
+        <!-- Email input -->
+        <div class="form-outline mb-4">
+          <input type="email" id="loginName" class="form-control" formControlName = "email"/>
+          <label class="form-label" for="loginName">Email</label>
+          <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 90.4px;"></div><div class="form-notch-trailing"></div></div>
+        </div>
+
+        <!-- Password input -->
+        <div class="form-outline mb-4">
+          <input type="password" id="loginPassword" class="form-control" formControlName = "password"/>
+          <label class="form-label" for="loginPassword">Password</label>
+          <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 90.4px;"></div><div class="form-notch-trailing"></div></div>
+        </div>
+
+        <!-- 2 column grid layout -->
+      
+
+        <!-- Submit button -->
+        <button  type="submit" class="btn btn-primary btn-block mb-4" (click)="login()">
+          Sign in
+        </button>
+      </form>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="pills-register"
+      role="tabpanel"
+      aria-labelledby="tab-register"
+    >
+      <!-- Register Form -->
+      <form [formGroup]="registerform" autocomplete="off">
+        <div class="text-center mb-3">
+          <p>Sign up with:</p>
+          <button type="button" class="btn btn-secondary btn-floating mx-1">
+            <i class="fab fa-facebook-f"></i>
+          </button>
+
+          <button type="button" class="btn btn-secondary btn-floating mx-1">
+            <i class="fab fa-google"></i>
+          </button>
+
+          <button type="button" class="btn btn-secondary btn-floating mx-1">
+            <i class="fab fa-twitter"></i>
+          </button>
+
+          <button type="button" class="btn btn-secondary btn-floating mx-1">
+            <i class="fab fa-github"></i>
+          </button>
+        </div>
+
+        <p class="text-center">or:</p>
+
+        <!-- Name input -->
+        <div class="form-outline mb-4">
+          <input type="text" id="registerName" class="form-control" formControlName="name"/>
+          <label class="form-label" for="registerName">Name</label>
+          <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 90.4px;"></div><div class="form-notch-trailing"></div></div>
+        </div>
+        <div class="form-outline mb-4">
+          <input type="text" id="registerName" class="form-control" formControlName="phone"/>
+          <label class="form-label" for="registerName">Phone Number</label>
+          <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 90.4px;"></div><div class="form-notch-trailing"></div></div>
+        </div>
+
+        <!-- Email input -->
+        <div class="form-outline mb-4">
+          <input type="email" id="registerEmail" class="form-control" formControlName="email"/>
+          <label class="form-label" for="registerEmail">Email</label>
+          <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 90.4px;"></div><div class="form-notch-trailing"></div></div>
+        </div>
+
+        <!-- Password input -->
+        <div class="form-outline mb-4">
+          <input type="password" id="registerPassword" class="form-control" formControlName="password"/>
+          <label class="form-label" for="registerPassword">Password</label>
+          <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 90.4px;"></div><div class="form-notch-trailing"></div></div>
+        </div>
+        <div class="btn-group form-outline mb-4">
+          <input type="radio" class="btn-check" name="options" id="option1" value = "User" formControlName = "type" autocomplete="off"  />
+          <label class="btn btn-secondary" for="option1">User</label>
+        
+          <input type="radio" class="btn-check" name="options" id="option2" value = "Director" formControlName = "type" autocomplete="off" />
+          <label class="btn btn-secondary" for="option2">Director</label>
+        
+          <input type="radio" class="btn-check" name="options" id="option3" value = "Employee" formControlName = "type" autocomplete="off" />
+          <label class="btn btn-secondary" for="option3">Employee</label>
+        </div>
+        <!-- Submit button -->
+        <button (click)="register()" type="submit" class="btn btn-primary btn-block mb-3">
+          Sign in
+        </button>
+      </form>
+    </div>
+  </div>
+  <!-- Pills content -->
+</section>
