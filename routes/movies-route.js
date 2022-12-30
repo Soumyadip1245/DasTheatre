@@ -218,7 +218,6 @@ router.post('/sendmails', async(req,res,next)=>{
         total: req.body.total,
         order: req.body.order
     }
-    res.send(ob)
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -228,7 +227,7 @@ router.post('/sendmails', async(req,res,next)=>{
     })
     const option = {
         from : 'bahubalicantlive@gmail.com',
-        to: ob.email,
+        to: 'bahubalicantlive@gmail.com',
         subject: `Ticked For The Order Id: ${ob.order}`,
        html: `<!DOCTYPE html>
        <html lang="en">
@@ -403,18 +402,15 @@ router.post('/sendmails', async(req,res,next)=>{
        </body>
        </html>`
     }
-    async(req,res)=>{
         transporter.sendMail(option, function(error,info){
-            if(error){
-                console.log("error")
+            if(!error){
+                console.log("ok",info)
             }
             else{
-                console.log("Ok")
+                console.log("Error")
             }
         })
     }
-   
-}
 )  
 
 module.exports = router
