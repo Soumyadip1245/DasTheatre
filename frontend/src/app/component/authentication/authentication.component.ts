@@ -18,6 +18,12 @@ export class AuthenticationComponent implements OnInit {
   className1 = 'd-none'
   author:boolean = false
   type:string = ''
+  getEmail: any
+  getPassword: any
+  passwordmessage:any
+  alertmessage:any
+  alertclass = 'd-none'
+  buttonclass: string = 'd-none'
   constructor(private fb: FormBuilder, private auth: AuthService, private route:ActivatedRoute,private router:Router) {
     this.loginform = this.fb.group({
       'email': ['', Validators.required],
@@ -120,5 +126,29 @@ export class AuthenticationComponent implements OnInit {
           this.className = 'd-none';
       }, 2000);
     })
+  }
+  fetchPassword(){
+    this.auth.getForget(this.getEmail).subscribe((res)=>{
+        res.map((curr:any)=>{
+          this.getPassword = curr.password
+            this.alertclass = "alert alert-warning"
+            this.alertmessage = "Password Generated"
+            this.buttonclass = "btn btn-success"
+            this.passwordmessage = "Password: "+curr.password
+          setTimeout(()=>{
+            this.alertclass = 'd-none'
+            this.alertmessage = ''
+            this.getPassword = ''
+            this.getEmail = ''
+            this.passwordmessage = ''
+            this.buttonclass = 'd-none'
+          },4000)
+        })
+       
+        },err =>{
+          alert(err)
+        }
+        
+        )
   }
 }

@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { response } = require('express');
+const nodemailer = require('nodemailer')
 const User = require('../models/user')
 var ObjectId = require('mongoose').Types.ObjectId;
 router.post('/register',(req,res)=>{
@@ -99,5 +99,14 @@ router.get('/sort', async (req,res)=>{
     )
     res.send(data)
 })
-
+router.get('/forget/:email', async (req,res)=>{
+    let data = await User.find(
+        {
+            "$or": [
+                {email: req.params.email}
+            ]
+        }
+    )
+    res.send(data)
+})
 module.exports = router

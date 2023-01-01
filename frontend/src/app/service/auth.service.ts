@@ -50,4 +50,8 @@ authenticationValue: boolean = false
   getValue(){
     return this.authenticationValue
   }
+  getForget(data:any){
+    console.log(data)
+    return this.http.get<any>('https://theatre-backend.vercel.app/auth/forget/'+data)
+  }
 }
