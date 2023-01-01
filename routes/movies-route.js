@@ -218,16 +218,29 @@ router.post('/sendmails', async(req,res,next)=>{
         total: req.body.total,
         order: req.body.order
     }
-    var transporter = nodemailer.createTransport({
+    const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'bahubalicantlive@gmail.com',
-            pass: 'hpogdeygcwiibhak'
-        }
-    })
-    const option = {
+            user: "bahubalicantlive@gmail.com",
+            pass: "hpogdeygcwiibhak",
+        },
+        secure: true,
+    });
+    await new Promise((resolve, reject) => {
+        // verify connection configuration
+        transporter.verify(function (error, success) {
+            if (error) {
+                console.log(error);
+                reject(error);
+            } else {
+                console.log("Server is ready to take our messages");
+                resolve(success);
+            }
+        });
+    });
+    const mailData = {
         from : 'bahubalicantlive@gmail.com',
-        to: 'bahubalicantlive@gmail.com',
+        to: ob.email,
         subject: `Ticked For The Order Id: ${ob.order}`,
        html: `<!DOCTYPE html>
        <html lang="en">
@@ -401,16 +414,23 @@ router.post('/sendmails', async(req,res,next)=>{
        </div>
        </body>
        </html>`
-    }
-        transporter.sendMail(option, function(error,info){
-            if(!error){
-                console.log("ok",info)
+    };
+    await new Promise((resolve, reject) => {
+        // send mail
+        transporter.sendMail(mailData, (err, info) => {
+            if (err) {
+                console.error(err);
+                reject(err);
+            } else {
+                console.log(info);
+                resolve(info);
             }
-            else{
-                console.log("Error")
-            }
-        })
-    }
+        });
+    });
+    
+    res.status(200).json({ status: "OK" });
+    
+}
 )  
 
 module.exports = router
