@@ -24,6 +24,13 @@ export class AuthenticationComponent implements OnInit {
   alertmessage:any
   alertclass = 'd-none'
   buttonclass: string = 'd-none'
+  emailtext:any
+  getpassword :any
+  getpassword12 = 'd-none'
+  employeeid = 'd-none'
+  employeetext :any
+  employeedata: any
+  employeepassword:any
   constructor(private fb: FormBuilder, private auth: AuthService, private route:ActivatedRoute,private router:Router) {
     this.loginform = this.fb.group({
       'email': ['', Validators.required],
@@ -129,26 +136,48 @@ export class AuthenticationComponent implements OnInit {
   }
   fetchPassword(){
     this.auth.getForget(this.getEmail).subscribe((res)=>{
-        res.map((curr:any)=>{
-          this.getPassword = curr.password
-            this.alertclass = "alert alert-warning"
-            this.alertmessage = "Password Generated"
-            this.buttonclass = "btn btn-success"
-            this.passwordmessage = "Password: "+curr.password
-          setTimeout(()=>{
-            this.alertclass = 'd-none'
-            this.alertmessage = ''
-            this.getPassword = ''
-            this.getEmail = ''
-            this.passwordmessage = ''
-            this.buttonclass = 'd-none'
-          },4000)
-        })
-       
-        },err =>{
-          alert(err)
+      res.map((curr:any)=>{
+        if(curr.email==this.getEmail){
+          this.emailtext = 'd-none'
+          this.getpassword = 'd-none'
+          this.employeeid = 'employeeid'
+          this.getpassword12='getpassword12'
+          this.employeedata = curr._id
+          this.employeepassword = curr.password
+          this.getEmail = ''
         }
-        
-        )
+        else{
+          this.getEmail = ''
+          this.getpassword='getpassword'
+        }
+      })
+         
+  })
+}
+  fetchPassword1(){
+    if(this.employeedata == this.employeetext){
+      this.alertclass = 'alert alert-warning'
+      this.alertmessage = 'Password Generated'
+      this.buttonclass = 'btn btn-success'
+      this.passwordmessage = "Password: "+this.employeepassword
+    }
+    else{
+      this.alertclass = 'alert alert-warning'
+      this.alertmessage = 'Account Not Found For The Details'
+    }
+    setTimeout(()=>{
+      this.alertclass='d-none'
+      this.alertmessage=''
+      this.employeeid = 'd-none'
+      this.employeetext = ''
+      this.getpassword12='d-none'
+      this.buttonclass = 'd-none'
+      this.passwordmessage = ''
+      this.emailtext='emailtext'
+      this.getpassword='getpassword'
+    },4000)
+  }
+  CloseReset(){
+    this.getEmail = ''
   }
 }

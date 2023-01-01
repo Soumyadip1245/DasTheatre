@@ -111,13 +111,31 @@
               <p class="py-2">
                   Enter your email address and we'll send you an email with password.
               </p>
-              <div class="form-outline">
+              <div [ngClass]="emailtext">
+                <div class="form-outline">
                   <input type="email" id="typeEmail" class="form-control my-3" [(ngModel)]="getEmail"/>
                   <label class="form-label" for="typeEmail">Email input</label>
                   <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 90.4px;"></div><div class="form-notch-trailing"></div></div>
 
                 </div>
-              <a  (click)="fetchPassword()" class="btn btn-primary w-100">Get password</a>
+              </div>
+             
+                <div style="margin-bottom: 1rem;" [ngClass]="employeeid">
+                  <div class="form-outline">
+                    <input type="text" id="typeText" class="form-control" [(ngModel)]="employeetext"/>
+                    <label class="form-label" for="typeText">Employee Id</label>
+                    <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 90.4px;"></div><div class="form-notch-trailing"></div></div>
+
+                  </div>
+                </div>
+               <div [ngClass]="getpassword">
+                <a  (click)="fetchPassword()" class="btn btn-primary w-100">Authenticate</a>
+
+               </div>
+               <div [ngClass]="getpassword12">
+                <a  (click)="fetchPassword1()" class="btn btn-primary w-100">Get password</a>
+
+               </div>
             <button
             [ngClass]="buttonclass"
             type="button"
@@ -134,7 +152,7 @@
             <div class="collapse mt-3" id="collapseExample">
               {{passwordmessage}}
             </div>
-              <a  style="margin-top: 1rem" class="btn btn-secondary" data-mdb-dismiss="modal" >Close </a>
+              <a (click)="CloseReset()" style="margin-top: 1rem" class="btn btn-secondary" data-mdb-dismiss="modal" >Close </a>
           </div>
       </div>
   </div>
