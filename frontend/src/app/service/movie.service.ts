@@ -56,6 +56,6 @@ export class MovieService {
     return this.http.get<any>('https://theatre-backend.vercel.app/movies/searchbar/'+name)
   }
   sendMail(ob:any){
-    return this.http.post('https://theatre-backend.vercel.app/movies/sendmails',ob)
+    return this.http.post('http://localhost:8080/movies/sendmails',ob)
   }
 }
