@@ -58,4 +58,7 @@ export class MovieService {
   sendMail(ob:any){
     return this.http.post('https://theatre-backend.vercel.app/movies/sendmails',ob)
   }
+  getMovie(id:any){
+    return this.http.get<any>('http://localhost:8080/movies/viewMovie/'+id)
+  }
 }

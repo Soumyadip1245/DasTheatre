@@ -109,7 +109,11 @@
             <span *ngIf = "person.authorised === false" class="badge badge-danger rounded-pill d-inline">Not Authorised</span>
           </td>
           <td>
-            <button type="button" class="btn btn-dark btn-floating" (click)="togglebutton(person._id)" >{{person.authorised == true ? '✖' : '✔'}}</button>
+            <div class="form-check form-switch">
+              <input class="form-check-input" (click)="togglebutton(person._id)" *ngIf = "person.authorised == true" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked />
+              <input class="form-check-input" (click)="togglebutton(person._id)" *ngIf = "person.authorised == false" type="checkbox" role="switch" id="flexSwitchCheckChecked"/>
+            </div>
+            <!-- <button type="button" class="btn btn-dark btn-floating" (click)="togglebutton(person._id)" >{{person.authorised == true ? '✖' : '✔'}}</button> -->
         </td>
         </tr>
       </tbody>
@@ -280,6 +284,7 @@
                 <th>Details</th>
                 <th>Status</th>
                 <th>Type</th>
+                <th>View</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -307,6 +312,68 @@
                   <span *ngIf = "j.buyout == false" class="badge badge-danger rounded-pill d-inline">Not Approved</span>
                 </td>
                 <td>{{j.type}}</td>
+                <td>
+                 <!-- Button trigger modal -->
+                 <button (click)="getMovies(j._id)" data-mdb-toggle="modal" data-mdb-target="#exampleModal12" type="button" class="btn btn-link btn-sm btn-rounded" style="font-size: 1rem;color: black;background: transparent;font-weight: bolder;">
+                  <i class="fa-solid fa-up-right-from-square"></i>
+                </button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal12" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Movie Details</h5>
+        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" *ngFor = "let detail of moviedetail">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" value = "{{detail.name}}" class="form-control" disabled>
+        </div>    
+        <img
+      src = "{{detail.image}}"
+      class="img-thumbnail"
+      style="width: 80%;
+      margin: 0 auto;
+      display: block;
+      margin-top: 2rem;"
+    />
+    <div class="form-group" style="margin-top: 2rem">
+      <label>Age</label>
+      <input type="text" value = "{{detail.age}}" class="form-control" disabled>
+    </div>  
+    <div class="form-group" style="margin-top: 2rem">
+      <label>Release</label>
+      <input type="calendar" value = "{{detail.release}}" class="form-control" disabled>
+    </div>  
+    <div class="form-group" style="margin-top: 2rem">
+      <label>Type</label>
+      <input type="text" value = "{{detail.type}}" class="form-control" disabled>
+    </div>  
+    <div class="form-group" style="margin-top: 2rem">
+      <label>Amount</label>
+      <input type="text" value = "{{detail.amount}}" class="form-control" disabled>
+    </div>  
+    <div class="form-group" style="margin-top: 2rem">
+      <label>Description</label>
+      <textarea value = "{{detail.description}}" class="form-control"  rows="4" disabled></textarea>    </div>  
+
+
+
+
+      </div>
+      <div class="modal-footer"> 
+        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+                </td>
                 <td>
                   <button (click)="approve(j._id)" type="button" class="btn btn-link btn-sm btn-rounded" style="font-size: 1rem;color: black;background: transparent;font-weight: bolder;">
                     {{j.buyout == true ? "✖": "✔"}}

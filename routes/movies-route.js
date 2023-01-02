@@ -67,6 +67,16 @@ router.get('/toggle/:id', (req, res) => {
     })
 
 })
+router.get('/viewMovie/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given id: ${req.params.id}`);
+
+    Movies.findById(req.params.id, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in Retrieving Service: ' + JSON.stringify(err, undefined, 2)); }
+    })
+
+})
 router.delete('/delete/:id',(req,res)=>{
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id: ${req.params.id}`);

@@ -27,6 +27,7 @@ export class AdminComponent implements OnInit {
   className1 = 'd-none'
   userDetails: any[]= []
   searchbar: any
+  moviedetail:any[]=[]
   constructor(private fb: FormBuilder, private route:Router, private auth : AuthService,  private router: ActivatedRoute, private http: HttpClient,private mo: MovieService) {
     this.editform = this.fb.group({
       'id': [''],
@@ -74,7 +75,8 @@ export class AdminComponent implements OnInit {
     }
     editForm(data:any){
       this.auth.FetchdataById(data).subscribe((res:any)=>{
-        console.log(res._id)
+        console.warn(res)
+        console.log("Get Data: "+res)
         this.editform = this.fb.group(
           {
             id : [res._id, Validators.required],
@@ -160,6 +162,14 @@ export class AdminComponent implements OnInit {
   getDetails(){
     this.mo.getDetails().subscribe((res:any)=>{
       this.userDetails = res
+    })
+  }
+  getMovies(data:any){
+    this.moviedetail = []
+    this.mo.getMovie(data).subscribe((a:any)=>{
+      
+      this.moviedetail.push(a)
+      console.warn(this.moviedetail)
     })
   }
 }
