@@ -23,13 +23,13 @@ export class AuthService {
    
   }
   adminauthorise(){
-    return this.http.get<any>('https://theatre-backend.vercel.app/auth/admin')
+    return this.http.get<any>('http://localhost:8080/auth/admin')
   }
   FetchdataById(id:any){
-    return this.http.get<any>('https://theatre-backend.vercel.app/auth/toggle/'+id)
+    return this.http.get<any>('http://localhost:8080/auth/toggle/'+id)
   }
   updateItem(id:any,data:any){
-    return this.http.put('https://theatre-backend.vercel.app/auth/update/'+id,data)
+    return this.http.put('http://localhost:8080/auth/update/'+id,data)
   }
   editForm(id:any,data:any){
     return this.http.put('http://localhost:8080/auth/editUser/'+id,data)
@@ -41,16 +41,16 @@ export class AuthService {
     return this.http.post('http://localhost:8080/auth/postdata',data)
   }
   checkoutData(){
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/checkout')
+    return this.http.get<any>('http://localhost:8080/movies/checkout')
   }
   getBuyoutBuyId(id:any){
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/toggle/'+id)
+    return this.http.get<any>('http://localhost:8080/movies/toggle/'+id)
   }
   updateCheckout(id:any,data:any){
-    return this.http.put('https://theatre-backend.vercel.app/movies/update/'+id,data)
+    return this.http.put('http://localhost:8080/movies/update/'+id,data)
   }
   getMovieById(data:any){
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/toggle/'+data)
+    return this.http.get<any>('http://localhost:8080/movies/toggle/'+data)
   }
   setToken(data:any){
     localStorage.setItem("auth",data)

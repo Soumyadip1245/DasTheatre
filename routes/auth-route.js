@@ -64,6 +64,19 @@ router.get('/admin',(req,res)=>{
         }
     })
 })
+router.put('/update/:id', (req, res) => {
+    
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given id: ${req.params.id}`);
+
+    var ser ={
+        authorised: req.body.authorised
+    };
+    User.findByIdAndUpdate(req.params.id, { $set: ser }, { new: true }, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in Employee Update:' + JSON.stringify(err, undefined, 2)); }
+    })
+})
 router.get('/toggle/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id: ${req.params.id}`);
