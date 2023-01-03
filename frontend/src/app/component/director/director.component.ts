@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/service/auth.service';
 import { MovieService } from 'src/app/service/movie.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class DirectorComponent implements OnInit {
   addform!:FormGroup
   editform!: FormGroup
   moviedata:any
-  constructor(private mo: MovieService, private fb: FormBuilder) {
+  constructor(private auth: AuthService, private mo: MovieService, private fb: FormBuilder) {
     this.addform = this.fb.group({
       name: ['',Validators.required],
       image: ['',Validators.required],
@@ -35,6 +36,7 @@ export class DirectorComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    localStorage.removeItem("auth")
     this.getAll()
   }
   getAll(){

@@ -47,6 +47,7 @@ export class AdminComponent implements OnInit {
     )
    }
   ngOnInit(): void {
+    localStorage.removeItem("auth")
     this.auth.adminauthorise().subscribe((data)=>{
       this.adminData = data
     })
@@ -91,10 +92,18 @@ export class AdminComponent implements OnInit {
     EditChanges(){
       console.log("A: "+this.editform.value)
       this.auth.editForm(this.id,this.editform.value).subscribe((a:any)=>{
-        console.log(a)
-        this.refreshData()
-        this.className = 'alert alert-success'
-          this.message = 'Data Saved'
+        if(a.success){
+          this.className = 'alert alert-success'
+          this.message = a.message
+          this.refreshData()
+          this.refreshData()
+        }
+        else{
+          this.className = 'alert alert-warning'
+          this.message = a.message
+          this.refreshData()
+          this.refreshData()
+        }
         setTimeout(()=>{
           this.className = 'd-none'
           this.message = ''
@@ -103,16 +112,34 @@ export class AdminComponent implements OnInit {
     }
     deleteForm(data:any){
       this.auth.deleteForm(data).subscribe((res:any)=>{
-        console.log(res)
-        this.refreshData()
+        if(res.success){
+          this.className = 'alert alert-success'
+          this.message = res.message
+          this.refreshData()
+          this.refreshData()
+        }
+        else{
+          this.className = 'alert alert-primary'
+          this.message = res.message
+        }
+        setTimeout(()=>{
+          this.className = 'd-none'
+          this.message = ''
+        },2000)
       })
     }
     addForm(){
       this.auth.addForm(this.addform.value).subscribe((data:any)=>{
-        console.log(data)
-        this.refreshData()
-        this.className = 'alert alert-success'
-        this.message = 'Data Added'
+        if(data.success){
+          this.className = 'alert alert-success'
+          this.message = data.message
+          this.refreshData()
+          this.addform.reset()
+        }
+        else{
+          this.className = 'alert alert-warning'
+        this.message = data.message
+        }
       setTimeout(()=>{
         this.className = 'd-none'
         this.message = ''

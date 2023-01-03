@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { IfStmt, ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder,FormGroup,Validators,} from '@angular/forms';
 import { ActivatedRoute,Router } from '@angular/router';
@@ -25,12 +26,13 @@ export class AuthenticationComponent implements OnInit {
   alertclass = 'd-none'
   buttonclass: string = 'd-none'
   emailtext:any
-  getpassword :any
-  getpassword12 = 'd-none'
-  employeeid = 'd-none'
-  employeetext :any
-  employeedata: any
-  employeepassword:any
+  alertforget = 'd-none'
+  forgetmessage = ''
+  passwordneww = 'd-none'
+  passwordtext = ''
+  passwordid:any
+  validatebutton = 'btn btn-primary'
+  passwordbutton = 'd-none'
   constructor(private fb: FormBuilder, private auth: AuthService, private route:ActivatedRoute,private router:Router) {
     this.loginform = this.fb.group({
       'email': ['', Validators.required],
@@ -47,137 +49,154 @@ export class AuthenticationComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.author)
+   
   }
   login(){
-    const details = this.loginform.value
-    this.auth.login().subscribe((res)=>{
-      console.log(res)
-      const user = res.find((a:any)=>{
-        this.author = a.authorised
-        this.type = a.type
-        return a.email === details.email && a.password === details.password
-      })
-      if(user){                       
-          this.className = 'd-none';
-          if(details.email === "Admin"){
-            this.loginform.reset()
-              this.message = "Login Successful"
-              this.className = 'alert alert-success'
-              this.className1 = 'd-flex justify-content-center'
-              this.auth.setValue(true)
-            setTimeout(()=>{            
-              this.className = 'd-none'
-              this.className1 = 'd-none'
-              this.router.navigate(['/admin'])
-
-          }, 2000);
-            
-          }
-          else if (this.author == true){
-            if(this.type == 'Director')
-            {
-              this.loginform.reset()
-              this.message = "Login Successful"
-              this.className = 'alert alert-success'
-              this.className1 = 'd-flex justify-content-center'
-              this.auth.setValue(true)
-              setTimeout(()=>{            
-                this.className = 'd-none'
-                this.className1 = 'd-none'
-                this.router.navigate(['/director'])
-            }, 2000);
-            }
-            else{
-              this.loginform.reset()
-              this.message = "Login Successful"
-              this.className = 'alert alert-success'
-              this.className1 = 'd-flex justify-content-center'
-              this.auth.setValue(true)
-              setTimeout(()=>{            
-                this.className = 'd-none'
-                this.className1 = 'd-none'
-                this.router.navigate(['/employee'])
-            }, 2000);
-            }
-           
-          }
-          else{
-            this.loginform.reset()
-            this.message = "Wait For Admin Authorization"
-            this.className = 'alert alert-warning'
-            this.className1 = 'd-flex justify-content-center'
-            setTimeout(()=>{
-              this.className = 'd-none'
-              this.className1 = 'd-none'
-            }, 4000)
-          }
-      }
+    this.auth.login(this.loginform.value).subscribe((res)=>{
+      if(res.success){
+        localStorage.setItem('token',res.token)
+        this.auth.setToken("tokenforprotectedroute")
+        this.getProfile()
+        
+      } 
       else{
-        this.message = "Try Again"
-        this.className = 'alert alert-danger'
-        this.loginform.reset()
-        setTimeout(()=>{                          
-          this.className = 'd-none';
-      }, 2000);
+        this.className = 'alert alert-warning'
+        this.message = res.message
+        setTimeout(()=>{
+          this.className = 'd-none'
+          this.message = ''
+        },2000)
       }
     })
+    this.loginform.reset()
+  }
+  getProfile(){
+    
+    this.auth.profile().subscribe((res)=>{
+      
+      if(res.data.type=="Director" && res.data.authorised == true){
+        
+        this.className = 'alert alert-success'
+        this.message = res.message
+        setTimeout(()=>{
+          this.router.navigate(['/director'])
+        },2000)
+      }
+      else if(res.data.type=="Employee" && res.data.authorised == true){
+        
+        this.className = 'alert alert-success'
+        this.message = res.message
+        setTimeout(()=>{
+          this.router.navigate(['/employee'])
+        },2000)
+        
+      }
+      else if(res.data.type == "Admin"){
+        
+        this.className = 'alert alert-success'
+        this.message = res.message
+        setTimeout(()=>{
+          this.router.navigate(['/admin'])
+        },2000)
+      }
+      else{
+        this.router.navigate(["/authentication"])
+        this.className = 'alert alert-primary'
+        this.message = "Wait for Authorization From Admin"
+       
+      }
+    })
+    setTimeout(()=>{
+      this.className = 'd-none'
+      this.message = ''
+    },4000)
+  }
+  logout(){
+    localStorage.removeItem('token')
+    localStorage.removeItem('auth')
   }
   register(){
     this.isProcess = true
     this.auth.signup(this.registerform.value).subscribe(res=>{
-        this.isProcess = false
-        this.message = "Account Registered"
+      if(res.success){
+        this.message = res.message
         this.className = 'alert alert-success'
+      }
+      else{
+        this.message = res.message
+        this.className = 'alert alert-warning'
+      }
+        
         this.registerform.reset()
         setTimeout(()=>{                          
           this.className = 'd-none';
       }, 2000);
     })
   }
-  fetchPassword(){
-    this.auth.getForget(this.getEmail).subscribe((res)=>{
-      res.map((curr:any)=>{
-        if(curr.email==this.getEmail){
-          this.emailtext = 'd-none'
-          this.getpassword = 'd-none'
-          this.employeeid = 'employeeid'
-          this.getpassword12='getpassword12'
-          this.employeedata = curr._id
-          this.employeepassword = curr.password
-          this.getEmail = ''
-        }
-        else{
-          this.getEmail = ''
-          this.getpassword='getpassword'
-        }
-      })
-         
-  })
-}
-  fetchPassword1(){
-    if(this.employeedata == this.employeetext){
-      this.alertclass = 'alert alert-warning'
-      this.alertmessage = 'Password Generated'
-      this.buttonclass = 'btn btn-success'
-      this.passwordmessage = "Password: "+this.employeepassword
+validateemail(){
+  console.warn(this.emailtext)
+  var ob = {
+    "email": this.emailtext
+  }
+  this.auth.forget(ob).subscribe((res)=>{
+    console.log(res.success)
+    if(res.success){
+      console.log(res)
+      this.alertforget = 'alert alert-success'
+      this.forgetmessage = res.message
+      this.passwordneww = 'form-outline'
+      this.passwordid = res.value._id
+      this.validatebutton = 'd-none'
+      this.passwordbutton = 'btn btn-primary'
     }
     else{
-      this.alertclass = 'alert alert-warning'
-      this.alertmessage = 'Account Not Found For The Details'
+      this.alertforget = 'alert alert-warning'
+      this.forgetmessage = res.message
+      this.emailtext = ''
     }
-    setTimeout(()=>{
-      this.alertclass='d-none'
-      this.alertmessage=''
-      this.employeeid = 'd-none'
-      this.employeetext = ''
-      this.getpassword12='d-none'
-      this.buttonclass = 'd-none'
-      this.passwordmessage = ''
-      this.emailtext='emailtext'
-      this.getpassword='getpassword'
-    },4000)
-  }
+  })
+  setTimeout(()=>{
+    this.alertforget = 'd-none'
+    this.message = ''
+  },2000)
+}
   CloseReset(){
     this.getEmail = ''
+  }
+  newpassword(){
+    var ob = {
+      "password": this.passwordtext
+    }
+    this.auth.resetPassword(this.passwordid,ob).subscribe((res)=>{
+      if(res.success){
+        this.alertforget='alert alert-success'
+        this.forgetmessage = res.message
+      }
+      else{
+        this.alertforget='alert alert-warning'
+        this.forgetmessage = res.message
+      }
+     
+    })
+    setTimeout(()=>{
+      this.passwordid = ''
+      this.passwordtext = ''
+      this.passwordneww = 'd-none'
+      this.alertforget = 'd-none'
+      this.forgetmessage = ''
+      this.validatebutton = 'btn btn-primary'
+      this.passwordbutton = 'd-none'
+      this.emailtext = ''
+    },2000)
+  }
+  closeButton(){
+    this.passwordid = ''
+    this.passwordtext = ''
+    this.passwordneww = 'd-none'
+    this.alertforget = 'd-none'
+    this.forgetmessage = ''
+    this.validatebutton = 'btn btn-primary'
+    this.passwordbutton = 'd-none'
+    this.emailtext = ''
   }
 }

@@ -1,3 +1,4 @@
+
 <section>
   <!-- Pills navs -->
   <div [ngClass]="className" role="alert" >
@@ -88,75 +89,62 @@
         <button  type="submit" class="btn btn-primary btn-block mb-4" (click)="login()">
           Sign in
         </button>
-        <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal" style="display: flex;margin: 0 auto;">
-  Forgot Password
-</button>
-
+        <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal" style="
+        display: flex;
+        margin: 0 auto;
+    ">
+          Forget Password
+        </button>
+       
 <!-- Modal -->
 
       </form>
-      <div class="modal top fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-   aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
-  <div class="modal-dialog" style="width: 300px;">
-      <div class="modal-content text-center">
-          <div class="modal-header h5 text-white bg-primary justify-content-center">
-              Forget Password
-          </div>
-          <div [ngClass]="alertclass" role="alert">
-           {{alertmessage}}
-          </div>
-
-          <div class="modal-body px-5">
-              <p class="py-2">
-                  Enter your email address and we'll send you an email with password.
-              </p>
-              <div [ngClass]="emailtext">
-                <div class="form-outline">
-                  <input type="email" id="typeEmail" class="form-control my-3" [(ngModel)]="getEmail"/>
-                  <label class="form-label" for="typeEmail">Email input</label>
-                  <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 90.4px;"></div><div class="form-notch-trailing"></div></div>
-
-                </div>
-              </div>
-             
-                <div style="margin-bottom: 1rem;" [ngClass]="employeeid">
-                  <div class="form-outline">
-                    <input type="text" id="typeText" class="form-control" [(ngModel)]="employeetext"/>
-                    <label class="form-label" for="typeText">Employee Id</label>
-                    <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 90.4px;"></div><div class="form-notch-trailing"></div></div>
-
-                  </div>
-                </div>
-               <div [ngClass]="getpassword">
-                <a  (click)="fetchPassword()" class="btn btn-primary w-100">Authenticate</a>
-
-               </div>
-               <div [ngClass]="getpassword12">
-                <a  (click)="fetchPassword1()" class="btn btn-primary w-100">Get password</a>
-
-               </div>
-            <button
-            [ngClass]="buttonclass"
-            type="button"
-            data-mdb-toggle="collapse"
-            data-mdb-target="#collapseExample"
-            aria-expanded="false"
-            aria-controls="collapseExample"
-            style="margin-top: 1rem"
-            >
-            Password Generated
-            </button>
-
-            <!-- Collapsed content -->
-            <div class="collapse mt-3" id="collapseExample">
-              {{passwordmessage}}
+      <div class="modal top fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
+        <div class="modal-dialog modal-xl ">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Forget Password</h5>
+              
+              <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+              
             </div>
-              <a (click)="CloseReset()" style="margin-top: 1rem" class="btn btn-secondary" data-mdb-dismiss="modal" >Close </a>
+            <div style="margin-top: 1rem;" [ngClass]="alertforget" role="alert">
+              {{forgetmessage}}
+            </div>
+            <div class="modal-body">
+
+              <div class="form-outline" style="
+              width: 80%;
+              margin: 0 auto;
+          ">
+                <input type="text" id="form12" class="form-control" [(ngModel)]="emailtext"/>
+                <label class="form-label" for="form12">Enter Email</label>
+                <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 87.2px;"></div><div class="form-notch-trailing"></div></div>
+              </div>
+
+              <div [ngClass]="passwordneww" style="
+              width: 80%;
+              margin: 1rem auto;
+          ">
+                <input type="text" id="form12" class="form-control" [(ngModel)]="passwordtext"/>
+                <label class="form-label" for="form12">New Password</label>
+                <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 87.2px;"></div><div class="form-notch-trailing"></div></div>
+              </div>
+              <button (click)="validateemail()" type="button" [ngClass]="validatebutton" style="
+              margin: 1rem auto;
+              display: block;
+          ">Validate Email</button>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" (click)="closeButton()" class="btn btn-secondary" data-mdb-dismiss="modal">
+                Close
+              </button>
+              <button (click)="newpassword()" type="button" [ngClass]="passwordbutton">Save Password</button>
+            </div>
           </div>
+        </div>
       </div>
-  </div>
-</div>
     </div>
     <div
       class="tab-pane fade"

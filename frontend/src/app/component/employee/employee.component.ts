@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MovieService } from 'src/app/service/movie.service';
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
+import { AuthService } from 'src/app/service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee',
@@ -34,13 +36,16 @@ export class EmployeeComponent implements OnInit {
   message: any=''
   movie:any
   totalprice:any
-  constructor(private mo: MovieService) { }
+  constructor(private auth: AuthService, private mo: MovieService,private router:Router) { }
 
   ngOnInit(): void {
+    localStorage.removeItem("auth")
     this.buyouttrue()
     this.getSeats()
     this.seatcount 
     this.getDetails()
+    
+    
   }
   buyouttrue(){
     this.mo.buyouttrue().subscribe((res:any)=>{

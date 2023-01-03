@@ -6,16 +6,16 @@ import { DirectorComponent } from './component/director/director.component';
 import { EmployeeComponent } from './component/employee/employee.component';
 import { UserComponent } from './component/user/user.component';
 import { WelcomeComponent } from './component/welcome/welcome.component';
-import { LoginGuard } from './guard/login.guard';
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   {path: '', redirectTo:'welcome',pathMatch:'full'},
   {path: 'welcome', component: WelcomeComponent},
   {path: 'authentication', component: AuthenticationComponent},
-  {path: 'user', component: UserComponent},
-  {path: 'admin', component: AdminComponent, canActivate: [LoginGuard]},
-  {path: 'employee', component: EmployeeComponent, canActivate: [LoginGuard]},
-  {path: 'director', component: DirectorComponent, canActivate: [LoginGuard]}
+  {path: 'user', component: UserComponent, canActivate : [AuthGuard]},
+  {path: 'admin', component: AdminComponent, canActivate : [AuthGuard]},
+  {path: 'employee', component: EmployeeComponent, canActivate : [AuthGuard]},
+  {path: 'director', component: DirectorComponent, canActivate : [AuthGuard]}
 ];
 
 @NgModule({
