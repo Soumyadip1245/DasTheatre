@@ -39,9 +39,6 @@ router.put('/updateCheckout/:id', (req, res) => {
     })
 })
 router.put('/edit/:id', (req, res) => {
-    
-    if (!ObjectId.isValid(req.params.id))
-        return res.status(400).send(`No record with given id: ${req.params.id}`);
 
     var ser ={
         name: req.body.name,
@@ -53,8 +50,12 @@ router.put('/edit/:id', (req, res) => {
         description: req.body.description
     };
     Movies.findByIdAndUpdate(req.params.id, { $set: ser }, { new: true }, (err, doc) => {
-        if (!err) { res.send(doc); }
-        else { console.log('Error in Employee Update:' + JSON.stringify(err, undefined, 2)); }
+        if(err){
+            res.json({success:false, message: "All Field Are Required"})
+        }
+        else{
+            res.json({success:true,message: "Movie Updated"})
+        }
     })
 })
 router.get('/toggle/:id', (req, res) => {
@@ -78,12 +79,13 @@ router.get('/viewMovie/:id', (req, res) => {
 
 })
 router.delete('/delete/:id',(req,res)=>{
-    if (!ObjectId.isValid(req.params.id))
-        return res.status(400).send(`No record with given id: ${req.params.id}`);
-    
     Movies.findByIdAndRemove(req.params.id,(err,doc)=>{
-        if (!err) { res.send(doc); }
-        else { console.log('Error in Employee Deleted:' + JSON.stringify(err, undefined, 2)); }
+        if(err){
+            res.json({success:false, message: "Select A Movie First"})
+        }
+        else{
+            res.json({success:true,message: "Movie Deleted"})
+        }
     })
 })
 router.post('/addmovies', (req, res) => {
@@ -97,8 +99,12 @@ router.post('/addmovies', (req, res) => {
         description: req.body.description
     });
     ser.save((err, doc) => {
-        if (!err) { res.send(doc); }
-        else { console.log('Error in Employee Save:' + JSON.stringify(err, undefined, 2)); }
+       if(err){
+        res.json({success:false,message: "All Field Are Needed"})
+       }
+       else{
+        res.json({success:true, message: "Movies Added"})
+       }
     })
 })
 router.get('/sort', async (req,res)=>{

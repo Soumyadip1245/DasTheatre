@@ -8,19 +8,18 @@ input {
   border-top-right-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
 }
-.alert-message{
+.alert-message {
   width: 20%;
   margin: 2rem;
   float: right;
 }
 
-@media (max-width: 500px){
-  section{
+@media (max-width: 500px) {
+  section {
     width: 70%;
   }
-  div.btn-group.form-outline.mb-4{
+  div.btn-group.form-outline.mb-4 {
     display: flex;
     flex-flow: column;
   }
-  
 }

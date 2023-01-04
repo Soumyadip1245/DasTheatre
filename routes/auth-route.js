@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const nodemailer = require('nodemailer')
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 const User = require('../models/user')
 const loginAuth = require('./login')
@@ -40,7 +40,7 @@ router.post('/login',(req,res)=>{
                 return res.json({success: true, token: token, message: "Login Successfull"})
             }
             else{
-                return res.json({success: false, message: "Credentials Not Found In Our Database"})
+                return res.json({success: false, message: "Credentials Not Matched For Details"})
             }
         })
     }
@@ -152,12 +152,12 @@ router.put('/editUser/:id',(req,res)=>{
     })
 })
 router.post('/forgetemail',(req,res)=>{
-    User.findOne({email: req.body.email},(err,doc)=>{
+    User.findById(req.body.id,(err,doc)=>{
         if(!doc){
-            res.json({success:false, message: "Email Not Found Try Again"})
+            res.json({success:false, message: "User Not Found Try Again"})
         }
         else{
-            res.json({success:true, message: "Email Found",value: doc})
+            res.json({success:true, message: "User Found",value: doc})
         }
     })
 })

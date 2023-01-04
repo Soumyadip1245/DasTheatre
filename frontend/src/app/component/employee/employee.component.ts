@@ -56,7 +56,7 @@ export class EmployeeComponent implements OnInit {
     this.mo.getMovieById(data).subscribe((a:any)=>{
       console.log(a)
       this.namevalue = a.name
-      this.className = 'alert alert-warning text-center'
+      this.className = 'alert alert-success text-center'
     })
     setTimeout(()=>{
       this.className = 'd-none'
@@ -120,7 +120,7 @@ export class EmployeeComponent implements OnInit {
   }
   onSubmit(){
    
-    this.className2='alert alert-success'
+    this.className2='alert alert-primary'
     var randLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
     this.uniqid = randLetter + Date.now();
     var ob = {

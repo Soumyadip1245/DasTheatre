@@ -1,8 +1,7 @@
-
 <section>
   <!-- Pills navs -->
-  <div [ngClass]="className" role="alert" >
-   {{message}}
+  <div [ngClass]="className" role="alert">
+    {{ message }}
   </div>
   <div [ngClass]="className1">
     <div class="spinner-border" role="status">
@@ -70,77 +69,142 @@
 
         <!-- Email input -->
         <div class="form-outline mb-4">
-          <input type="email" id="loginName" class="form-control" formControlName = "email"/>
+          <input
+            type="email"
+            id="loginName"
+            class="form-control"
+            formControlName="email"
+          />
           <label class="form-label" for="loginName">Email</label>
-          <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 90.4px;"></div><div class="form-notch-trailing"></div></div>
+          <div class="form-notch">
+            <div class="form-notch-leading" style="width: 9px"></div>
+            <div class="form-notch-middle" style="width: 90.4px"></div>
+            <div class="form-notch-trailing"></div>
+          </div>
         </div>
 
         <!-- Password input -->
         <div class="form-outline mb-4">
-          <input type="password" id="loginPassword" class="form-control" formControlName = "password"/>
+          <input
+            type="password"
+            id="loginPassword"
+            class="form-control"
+            formControlName="password"
+          />
           <label class="form-label" for="loginPassword">Password</label>
-          <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 90.4px;"></div><div class="form-notch-trailing"></div></div>
+          <div class="form-notch">
+            <div class="form-notch-leading" style="width: 9px"></div>
+            <div class="form-notch-middle" style="width: 90.4px"></div>
+            <div class="form-notch-trailing"></div>
+          </div>
         </div>
 
         <!-- 2 column grid layout -->
-      
 
         <!-- Submit button -->
-        <button  type="submit" class="btn btn-primary btn-block mb-4" (click)="login()">
+        <button
+          type="submit"
+          class="btn btn-primary btn-block mb-4"
+          (click)="login()"
+        >
           Sign in
         </button>
-        <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal" style="
-        display: flex;
-        margin: 0 auto;
-    ">
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-mdb-toggle="modal"
+          data-mdb-target="#exampleModal"
+          style="display: flex; margin: 0 auto"
+        >
           Forget Password
         </button>
-       
-<!-- Modal -->
 
+        <!-- Modal -->
       </form>
-      <div class="modal top fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
-        <div class="modal-dialog modal-xl ">
+      <div
+        class="modal top fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        data-mdb-backdrop="true"
+        data-mdb-keyboard="true"
+      >
+        <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Forget Password</h5>
-              
-              <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-              
+              <h5 class="modal-title" id="exampleModalLabel">
+                Forget Password
+              </h5>
+
+              <button
+                type="button"
+                class="btn-close"
+                data-mdb-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
-            <div style="margin-top: 1rem;" [ngClass]="alertforget" role="alert">
-              {{forgetmessage}}
+            <div style="margin-top: 1rem" [ngClass]="alertforget" role="alert">
+              {{ forgetmessage }}
             </div>
             <div class="modal-body">
-
-              <div class="form-outline" style="
-              width: 80%;
-              margin: 0 auto;
-          ">
-                <input type="text" id="form12" class="form-control" [(ngModel)]="emailtext"/>
-                <label class="form-label" for="form12">Enter Email</label>
-                <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 87.2px;"></div><div class="form-notch-trailing"></div></div>
+              <div class="form-outline" style="width: 80%; margin: 0 auto">
+                <input
+                  type="text"
+                  id="form12"
+                  class="form-control"
+                  [(ngModel)]="emailtext"
+                />
+                <label class="form-label" for="form12">Enter Your Secret Employee Id</label>
+                <div class="form-notch">
+                  <div class="form-notch-leading" style="width: 9px"></div>
+                  <div class="form-notch-middle" style="width: 87.2px"></div>
+                  <div class="form-notch-trailing"></div>
+                </div>
               </div>
 
-              <div [ngClass]="passwordneww" style="
-              width: 80%;
-              margin: 1rem auto;
-          ">
-                <input type="text" id="form12" class="form-control" [(ngModel)]="passwordtext"/>
+              <div
+                [ngClass]="passwordneww"
+                style="width: 80%; margin: 1rem auto"
+              >
+                <input
+                  type="text"
+                  id="form12"
+                  class="form-control"
+                  [(ngModel)]="passwordtext"
+                />
                 <label class="form-label" for="form12">New Password</label>
-                <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 87.2px;"></div><div class="form-notch-trailing"></div></div>
+                <div class="form-notch">
+                  <div class="form-notch-leading" style="width: 9px"></div>
+                  <div class="form-notch-middle" style="width: 87.2px"></div>
+                  <div class="form-notch-trailing"></div>
+                </div>
               </div>
-              <button (click)="validateemail()" type="button" [ngClass]="validatebutton" style="
-              margin: 1rem auto;
-              display: block;
-          ">Validate Email</button>
-
+              <button
+                (click)="validateemail()"
+                type="button"
+                [ngClass]="validatebutton"
+                style="margin: 1rem auto; display: block"
+              >
+                Validate Account
+              </button>
             </div>
             <div class="modal-footer">
-              <button type="button" (click)="closeButton()" class="btn btn-secondary" data-mdb-dismiss="modal">
+              <button
+                type="button"
+                (click)="closeButton()"
+                class="btn btn-secondary"
+                data-mdb-dismiss="modal"
+              >
                 Close
               </button>
-              <button (click)="newpassword()" type="button" [ngClass]="passwordbutton">Save Password</button>
+              <button
+                (click)="newpassword()"
+                type="button"
+                [ngClass]="passwordbutton"
+              >
+                Save Password
+              </button>
             </div>
           </div>
         </div>
@@ -177,41 +241,105 @@
 
         <!-- Name input -->
         <div class="form-outline mb-4">
-          <input type="text" id="registerName" class="form-control" formControlName="name"/>
+          <input
+            type="text"
+            id="registerName"
+            class="form-control"
+            formControlName="name"
+          />
           <label class="form-label" for="registerName">Name</label>
-          <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 90.4px;"></div><div class="form-notch-trailing"></div></div>
+          <div class="form-notch">
+            <div class="form-notch-leading" style="width: 9px"></div>
+            <div class="form-notch-middle" style="width: 90.4px"></div>
+            <div class="form-notch-trailing"></div>
+          </div>
         </div>
         <div class="form-outline mb-4">
-          <input type="text" id="registerName" class="form-control" formControlName="phone"/>
+          <input
+            type="text"
+            id="registerName"
+            class="form-control"
+            formControlName="phone"
+          />
           <label class="form-label" for="registerName">Phone Number</label>
-          <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 90.4px;"></div><div class="form-notch-trailing"></div></div>
+          <div class="form-notch">
+            <div class="form-notch-leading" style="width: 9px"></div>
+            <div class="form-notch-middle" style="width: 90.4px"></div>
+            <div class="form-notch-trailing"></div>
+          </div>
         </div>
 
         <!-- Email input -->
         <div class="form-outline mb-4">
-          <input type="email" id="registerEmail" class="form-control" formControlName="email"/>
+          <input
+            type="email"
+            id="registerEmail"
+            class="form-control"
+            formControlName="email"
+          />
           <label class="form-label" for="registerEmail">Email</label>
-          <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 90.4px;"></div><div class="form-notch-trailing"></div></div>
+          <div class="form-notch">
+            <div class="form-notch-leading" style="width: 9px"></div>
+            <div class="form-notch-middle" style="width: 90.4px"></div>
+            <div class="form-notch-trailing"></div>
+          </div>
         </div>
 
         <!-- Password input -->
         <div class="form-outline mb-4">
-          <input type="password" id="registerPassword" class="form-control" formControlName="password"/>
+          <input
+            type="password"
+            id="registerPassword"
+            class="form-control"
+            formControlName="password"
+          />
           <label class="form-label" for="registerPassword">Password</label>
-          <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 90.4px;"></div><div class="form-notch-trailing"></div></div>
+          <div class="form-notch">
+            <div class="form-notch-leading" style="width: 9px"></div>
+            <div class="form-notch-middle" style="width: 90.4px"></div>
+            <div class="form-notch-trailing"></div>
+          </div>
         </div>
         <div class="btn-group form-outline mb-4">
-          <input type="radio" class="btn-check" name="options" id="option1" value = "User" formControlName = "type" autocomplete="off"  />
-          <label class="btn btn-secondary" for="option1">User</label>
-        
-          <input type="radio" class="btn-check" name="options" id="option2" value = "Director" formControlName = "type" autocomplete="off" />
+          <input
+            type="radio"
+            class="btn-check"
+            name="options"
+            id="option1"
+            value="Admin"
+            formControlName="type"
+            autocomplete="off"
+          />
+          <label class="btn btn-secondary" for="option1">Admin</label>
+
+          <input
+            type="radio"
+            class="btn-check"
+            name="options"
+            id="option2"
+            value="Director"
+            formControlName="type"
+            autocomplete="off"
+          />
           <label class="btn btn-secondary" for="option2">Director</label>
-        
-          <input type="radio" class="btn-check" name="options" id="option3" value = "Employee" formControlName = "type" autocomplete="off" />
+
+          <input
+            type="radio"
+            class="btn-check"
+            name="options"
+            id="option3"
+            value="Employee"
+            formControlName="type"
+            autocomplete="off"
+          />
           <label class="btn btn-secondary" for="option3">Employee</label>
         </div>
         <!-- Submit button -->
-        <button (click)="register()" type="submit" class="btn btn-primary btn-block mb-3">
+        <button
+          (click)="register()"
+          type="submit"
+          class="btn btn-primary btn-block mb-3"
+        >
           Sign in
         </button>
       </form>
