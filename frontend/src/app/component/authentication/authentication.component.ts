@@ -92,6 +92,7 @@ export class AuthenticationComponent implements OnInit {
           this.router.navigate(['/admin']);
         }, 2000);
       } else {
+        localStorage.clear()
         this.router.navigate(['/authentication']);
         this.className = 'alert alert-warning';
         this.message = 'Wait for Authorization From Admin';
