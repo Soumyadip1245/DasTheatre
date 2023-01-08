@@ -1,91 +1,104 @@
+<div class="dropdown">
+  <button class="btn btn-primary btn-floating" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown"
+    aria-expanded="false">
+    <i class="fa-solid fa-gear"></i>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <li><a class="dropdown-item" data-mdb-toggle="modal" data-mdb-target="#exampleModal7"><i
+          class="fa-solid fa-message"></i></a></li>
+    <li><a class="dropdown-item" (click)="getNotification()" data-mdb-toggle="modal"
+        data-mdb-target="#exampleModal18"><i class="fa-solid fa-bell"></i></a></li>
+    <li><a class="dropdown-item" (click)="refreshData();checkoutData()"><i class="fa-solid fa-arrows-rotate"></i></a>
+    </li>
+  </ul>
+</div>
 <section class="card">
+  <!-- Navbar -->
+
+  <!-- Navbar -->
   <!-- Pills navs -->
   <ul class="nav nav-pills nav-fill mb-3" id="ex1" role="tablist">
     <li class="nav-item" role="presentation">
-      <a
-        class="nav-link active"
-        id="ex2-tab-1"
-        data-mdb-toggle="pill"
-        href="#ex2-pills-1"
-        role="tab"
-        aria-controls="ex2-pills-1"
-        aria-selected="true"
-        >Authorize Account</a
-      >
+      <a class="nav-link active" id="ex2-tab-1" data-mdb-toggle="pill" href="#ex2-pills-1" role="tab"
+        aria-controls="ex2-pills-1" aria-selected="true">Authorize Account</a>
     </li>
     <li class="nav-item" role="presentation">
-      <a
-        class="nav-link"
-        id="ex2-tab-2"
-        data-mdb-toggle="pill"
-        href="#ex2-pills-2"
-        role="tab"
-        aria-controls="ex2-pills-2"
-        aria-selected="false"
-        >Manage Account</a
-      >
+      <a class="nav-link" id="ex2-tab-2" data-mdb-toggle="pill" href="#ex2-pills-2" role="tab"
+        aria-controls="ex2-pills-2" aria-selected="false">Manage Account</a>
     </li>
     <li class="nav-item" role="presentation">
-      <a
-        class="nav-link"
-        id="ex2-tab-3"
-        data-mdb-toggle="pill"
-        href="#ex2-pills-3"
-        role="tab"
-        aria-controls="ex2-pills-3"
-        aria-selected="false"
-        >Approve Movies</a
-      >
+      <a class="nav-link" id="ex2-tab-3" data-mdb-toggle="pill" href="#ex2-pills-3" role="tab"
+        aria-controls="ex2-pills-3" aria-selected="false">Approve Movies</a>
     </li>
     <li class="nav-item" role="presentation">
-      <a
-        class="nav-link"
-        id="ex2-tab-4"
-        data-mdb-toggle="pill"
-        href="#ex2-pills-4"
-        role="tab"
-        aria-controls="ex2-pills-4"
-        aria-selected="false"
-        >Manage Seats</a
-      >
+      <a class="nav-link" id="ex2-tab-4" data-mdb-toggle="pill" href="#ex2-pills-4" role="tab"
+        aria-controls="ex2-pills-4" aria-selected="false">Manage Seats</a>
     </li>
     <li class="nav-item" role="presentation">
-      <a
-        class="nav-link"
-        id="ex2-tab-5"
-        data-mdb-toggle="pill"
-        href="#ex2-pills-5"
-        role="tab"
-        aria-controls="ex2-pills-5"
-        aria-selected="false"
-      >
-        Bookings</a
-      >
+      <a class="nav-link" id="ex2-tab-5" data-mdb-toggle="pill" href="#ex2-pills-5" role="tab"
+        aria-controls="ex2-pills-5" aria-selected="false">
+        Bookings</a>
     </li>
   </ul>
   <!-- Pills navs -->
   <div [ngClass]="className" role="alert">
     <strong class="text-center">{{ message }}</strong>
   </div>
+  <!-- <button style="position: fixed;bottom: 0;right: 0;margin: 4rem;" type="button"
+    class="btn btn-primary btn-floating  btn-lg" data-mdb-toggle="modal" data-mdb-target="#exampleModal7">
+    <i class="fa-solid fa-message"></i>
+  </button> -->
+
+  <div class="modal right fade" id="exampleModal7" tabindex="-1" aria-labelledby="exampleModalLabel7" aria-hidden="true"
+    data-mdb-backdrop="default" data-mdb-keyboard="true">
+    <div class="modal-dialog modal-xl modal-side modal-bottom-right">
+      <div class="modal-content ">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel7">Support Forum</h5>
+          <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <ng-container *ngIf="messagearray.length < 1">
+          <div class="modal-body">
+            <img id="nomessage" src="https://i.imgur.com/ktV7ic0.png" alt="">
+          </div>
+        </ng-container>
+        <ng-container *ngIf="messagearray.length > 0">
+          <div class="modal-body" *ngFor="let message of messagearray">
+            <!-- <div [ngClass]="className1" role="alert">
+              {{message1}}
+            </div> -->
+            <div class="card">
+              <div class="card-header">{{message.name}}</div>
+              <div class="card-body">
+                <h5 class="card-title">{{message.email}}</h5>
+                <p class="card-text">{{message.message}}</p>
+                <a (click)="updateMessage(message._id, message.send)" class="btn btn-primary">Mark Read</a>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+
+
+
+
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+            Close
+          </button>
+          <button (click)="getMessage()" type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- Pills content -->
   <div class="tab-content" id="ex2-content">
-    <div
-      class="tab-pane fade show active"
-      id="ex2-pills-1"
-      role="tabpanel"
-      aria-labelledby="ex2-tab-1"
-    >
-      <div
-        class="d-grid gap-2 d-md-flex justify-content-md-end"
-        style="float: right"
-      >
-        <button
-          (click)="refreshData()"
-          class="btn btn-primary btn-floating me-md-2"
-          type="button"
-        >
+    <div class="tab-pane fade show active" id="ex2-pills-1" role="tabpanel" aria-labelledby="ex2-tab-1">
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="float: right">
+        <!-- <button (click)="refreshData()" class="btn btn-primary btn-floating me-md-2" type="button">
           <i class="fa-solid fa-arrows-rotate"></i>
-        </button>
+        </button> -->
       </div>
       <!-- Content -->
       <section class="table-responsive">
@@ -113,36 +126,17 @@
                 <p class="fw-normal mb-1">{{ person.type }}</p>
               </td>
               <td>
-                <span
-                  *ngIf="person.authorised === true"
-                  class="badge badge-success rounded-pill d-inline"
-                  >Authorised</span
-                >
-                <span
-                  *ngIf="person.authorised === false"
-                  class="badge badge-danger rounded-pill d-inline"
-                  >Not Authorised</span
-                >
+                <span *ngIf="person.authorised === true"
+                  class="badge badge-success rounded-pill d-inline">Authorised</span>
+                <span *ngIf="person.authorised === false" class="badge badge-danger rounded-pill d-inline">Not
+                  Authorised</span>
               </td>
               <td>
                 <div class="form-check form-switch">
-                  <input
-                    class="form-check-input"
-                    (click)="togglebutton(person._id)"
-                    *ngIf="person.authorised == true"
-                    type="checkbox"
-                    role="switch"
-                    id="flexSwitchCheckChecked"
-                    checked
-                  />
-                  <input
-                    class="form-check-input"
-                    (click)="togglebutton(person._id)"
-                    *ngIf="person.authorised == false"
-                    type="checkbox"
-                    role="switch"
-                    id="flexSwitchCheckChecked"
-                  />
+                  <input class="form-check-input" (click)="togglebutton(person._id)" *ngIf="person.authorised == true"
+                    type="checkbox" role="switch" id="flexSwitchCheckChecked" checked />
+                  <input class="form-check-input" (click)="togglebutton(person._id)" *ngIf="person.authorised == false"
+                    type="checkbox" role="switch" id="flexSwitchCheckChecked" />
                 </div>
                 <!-- <button type="button" class="btn btn-dark btn-floating" (click)="togglebutton(person._id)" >{{person.authorised == true ? '✖' : '✔'}}</button> -->
               </td>
@@ -151,148 +145,65 @@
         </table>
       </section>
     </div>
-    <div
-      class="tab-pane fade"
-      id="ex2-pills-2"
-      role="tabpanel"
-      aria-labelledby="ex2-tab-2"
-    >
-      <div
-        class="d-grid gap-2 d-md-flex justify-content-md-end"
-        style="float: right"
-      >
-        <button
-          class="btn btn-primary btn-floating me-md-2"
-          type="button"
-          data-mdb-toggle="modal"
-          data-mdb-target="#exampleModal1"
-        >
+    <div class="tab-pane fade" id="ex2-pills-2" role="tabpanel" aria-labelledby="ex2-tab-2">
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="float: right">
+        <button class="btn btn-primary btn-floating me-md-2" type="button" data-mdb-toggle="modal"
+          data-mdb-target="#exampleModal1">
           <i class="fa-solid fa-user-plus"></i>
         </button>
-        <div
-          class="modal fade"
-          id="exampleModal1"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
+        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Add Accounts</h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-mdb-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <form [formGroup]="addform">
                   <!-- 2 column grid layout with text inputs for the first and last names -->
                   <div class="row mb-4">
                     <div class="mb-3">
-                      <label for="exampleInputPassword1" class="form-label"
-                        >Name</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="exampleInputPassword1"
-                        formControlName="name"
-                      />
+                      <label for="exampleInputPassword1" class="form-label">Name</label>
+                      <input type="text" class="form-control" id="exampleInputPassword1" formControlName="name" />
                     </div>
                     <div class="mb-3">
-                      <label for="exampleInputPassword1" class="form-label"
-                        >Phone</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="exampleInputPassword1"
-                        formControlName="phone"
-                      />
+                      <label for="exampleInputPassword1" class="form-label">Phone</label>
+                      <input type="text" class="form-control" id="exampleInputPassword1" formControlName="phone" />
                     </div>
                     <div class="mb-3">
-                      <label for="exampleInputPassword1" class="form-label"
-                        >Email</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="exampleInputPassword1"
-                        formControlName="email"
-                      />
+                      <label for="exampleInputPassword1" class="form-label">Email</label>
+                      <input type="text" class="form-control" id="exampleInputPassword1" formControlName="email" />
                     </div>
                     <div class="mb-3">
-                      <label for="exampleInputPassword1" class="form-label"
-                        >Password</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="exampleInputPassword1"
-                        formControlName="password"
-                      />
+                      <label for="exampleInputPassword1" class="form-label">Password</label>
+                      <input type="text" class="form-control" id="exampleInputPassword1" formControlName="password" />
                     </div>
                     <div class="mb-3">
-                      <label for="exampleInputPassword1" class="form-label"
-                        >Type</label
-                      ><br />
+                      <label for="exampleInputPassword1" class="form-label">Type</label><br />
                       <div class="form-check form-check-inline">
-                        <input
-                          class="form-check-input"
-                          type="radio"
-                          value="Admin"
-                          id="inlineRadio1"
-                          formControlName="type"
-                        />
-                        <label class="form-check-label" for="inlineRadio1"
-                          >Admin</label
-                        >
+                        <input class="form-check-input" type="radio" value="Admin" id="inlineRadio1"
+                          formControlName="type" />
+                        <label class="form-check-label" for="inlineRadio1">Admin</label>
                       </div>
                       <div class="form-check form-check-inline">
-                        <input
-                          class="form-check-input"
-                          type="radio"
-                          value="Director"
-                          id="inlineRadio2"
-                          formControlName="type"
-                        />
-                        <label class="form-check-label" for="inlineRadio2"
-                          >Director</label
-                        >
+                        <input class="form-check-input" type="radio" value="Director" id="inlineRadio2"
+                          formControlName="type" />
+                        <label class="form-check-label" for="inlineRadio2">Director</label>
                       </div>
                       <div class="form-check form-check-inline">
-                        <input
-                          class="form-check-input"
-                          type="radio"
-                          value="Employee"
-                          id="inlineRadio2"
-                          formControlName="type"
-                        />
-                        <label class="form-check-label" for="inlineRadio2"
-                          >Employee</label
-                        >
+                        <input class="form-check-input" type="radio" value="Employee" id="inlineRadio2"
+                          formControlName="type" />
+                        <label class="form-check-label" for="inlineRadio2">Employee</label>
                       </div>
                     </div>
                   </div>
                 </form>
               </div>
               <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-mdb-dismiss="modal"
-                >
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
                   Close
                 </button>
-                <button
-                  type="button"
-                  (click)="addForm()"
-                  data-mdb-dismiss="modal"
-                  class="btn btn-primary"
-                >
+                <button type="button" (click)="addForm()" data-mdb-dismiss="modal" class="btn btn-primary">
                   Add account
                 </button>
               </div>
@@ -328,110 +239,55 @@
               <td>
                 <span class="badge badge-warning rounded-pill d-inline">{{
                   p.type
-                }}</span>
+                  }}</span>
               </td>
               <td>
-                <a
-                  style="color: #1e7666; margin-right: 1rem"
-                  (click)="editForm(p._id)"
-                  role="button"
-                  data-mdb-toggle="modal"
-                  data-mdb-target="#exampleModal"
-                >
+                <a style="color: #1e7666; margin-right: 1rem" (click)="editForm(p._id)" role="button"
+                  data-mdb-toggle="modal" data-mdb-target="#exampleModal">
                   <i class="fa-solid fa-pen-to-square fa-lg"></i>
                 </a>
-                <div
-                  class="modal fade"
-                  id="exampleModal"
-                  tabindex="-1"
-                  aria-labelledby="exampleModalLabel"
-                  aria-hidden="true"
-                >
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                  aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">
                           Edit Accounts
                         </h5>
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-mdb-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
+                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
                         <form [formGroup]="editform">
                           <!-- 2 column grid layout with text inputs for the first and last names -->
                           <div class="row mb-4">
                             <div class="mb-3">
-                              <label for="exampleInputEmail1" class="form-label"
-                                >Id</label
-                              >
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="exampleInputEmail1"
-                                aria-describedby="emailHelp"
-                                formControlName="id"
-                              />
+                              <label for="exampleInputEmail1" class="form-label">Id</label>
+                              <input type="text" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" formControlName="id" />
                             </div>
                             <div class="mb-3">
-                              <label
-                                for="exampleInputPassword1"
-                                class="form-label"
-                                >Name</label
-                              >
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="exampleInputPassword1"
-                                formControlName="name"
-                              />
+                              <label for="exampleInputPassword1" class="form-label">Name</label>
+                              <input type="text" class="form-control" id="exampleInputPassword1"
+                                formControlName="name" />
                             </div>
                             <div class="mb-3">
-                              <label
-                                for="exampleInputPassword1"
-                                class="form-label"
-                                >Phone</label
-                              >
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="exampleInputPassword1"
-                                formControlName="phone"
-                              />
+                              <label for="exampleInputPassword1" class="form-label">Phone</label>
+                              <input type="text" class="form-control" id="exampleInputPassword1"
+                                formControlName="phone" />
                             </div>
                             <div class="mb-3">
-                              <label
-                                for="exampleInputPassword1"
-                                class="form-label"
-                                >Email</label
-                              >
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="exampleInputPassword1"
-                                formControlName="email"
-                              />
+                              <label for="exampleInputPassword1" class="form-label">Email</label>
+                              <input type="text" class="form-control" id="exampleInputPassword1"
+                                formControlName="email" />
                             </div>
                           </div>
                         </form>
                       </div>
                       <div class="modal-footer">
-                        <button
-                          type="button"
-                          class="btn btn-secondary"
-                          data-mdb-dismiss="modal"
-                        >
+                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
                           Close
                         </button>
-                        <button
-                          type="button"
-                          (click)="EditChanges()"
-                          data-mdb-dismiss="modal"
-                          class="btn btn-primary"
-                        >
+                        <button type="button" (click)="EditChanges()" data-mdb-dismiss="modal" class="btn btn-primary">
                           Save changes
                         </button>
                       </div>
@@ -439,11 +295,7 @@
                   </div>
                 </div>
 
-                <a
-                  style="color: #ed2602"
-                  (click)="deleteForm(p._id)"
-                  role="button"
-                >
+                <a style="color: #ed2602" (click)="deleteForm(p._id)" role="button">
                   <i class="fa-solid fa-trash fa-lg"></i>
                 </a>
               </td>
@@ -452,23 +304,8 @@
         </table>
       </section>
     </div>
-    <div
-      class="tab-pane fade"
-      id="ex2-pills-3"
-      role="tabpanel"
-      aria-labelledby="ex2-tab-3"
-    >
-      <div
-        class="d-grid gap-2 d-md-flex justify-content-md-end"
-        style="float: right"
-      >
-        <button
-          (click)="checkoutData()"
-          class="btn btn-primary btn-floating me-md-2"
-          type="button"
-        >
-          <i class="fa-solid fa-arrows-rotate"></i>
-        </button>
+    <div class="tab-pane fade" id="ex2-pills-3" role="tabpanel" aria-labelledby="ex2-tab-3">
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="float: right">
       </div>
       <section class="table-responsive">
         <table class="table align-middle mb-0 bg-white">
@@ -486,12 +323,7 @@
             <tr *ngFor="let j of checkout">
               <td>
                 <div class="d-flex align-items-center">
-                  <img
-                    src="{{ j.image }}"
-                    alt=""
-                    style="width: 45px; height: 45px"
-                    class="rounded-circle"
-                  />
+                  <img src="{{ j.image }}" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
                   <div class="ms-3">
                     <p class="fw-bold mb-1">{{ j.name }}</p>
                   </div>
@@ -502,132 +334,67 @@
                 <p class="text-muted mb-0">{{ j.release }}</p>
               </td>
               <td>
-                <span
-                  *ngIf="j.buyout == true"
-                  class="badge badge-success rounded-pill d-inline"
-                  >Approved</span
-                >
-                <span
-                  *ngIf="j.buyout == false"
-                  class="badge badge-danger rounded-pill d-inline"
-                  >Not Approved</span
-                >
+                <span *ngIf="j.buyout == true" class="badge badge-success rounded-pill d-inline">Approved</span>
+                <span *ngIf="j.buyout == false" class="badge badge-danger rounded-pill d-inline">Not Approved</span>
               </td>
               <td>{{ j.type }}</td>
               <td>
                 <!-- Button trigger modal -->
-                <button
-                  (click)="getMovies(j._id)"
-                  data-mdb-toggle="modal"
-                  data-mdb-target="#exampleModal12"
-                  type="button"
-                  class="btn btn-link btn-sm btn-rounded"
-                  style="
+                <button (click)="getMovies(j._id)" data-mdb-toggle="modal" data-mdb-target="#exampleModal12"
+                  type="button" class="btn btn-link btn-sm btn-rounded" style="
                     font-size: 1rem;
                     color: black;
                     background: transparent;
                     font-weight: bolder;
-                  "
-                >
+                  ">
                   <i class="fa-solid fa-up-right-from-square"></i>
                 </button>
 
                 <!-- Modal -->
-                <div
-                  class="modal fade"
-                  id="exampleModal12"
-                  tabindex="-1"
-                  aria-labelledby="exampleModalLabel"
-                  aria-hidden="true"
-                >
+                <div class="modal fade" id="exampleModal12" tabindex="-1" aria-labelledby="exampleModalLabel"
+                  aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">
                           Movie Details
                         </h5>
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-mdb-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
+                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                       </div>
-                      <div
-                        class="modal-body"
-                        *ngFor="let detail of moviedetail"
-                      >
+                      <div class="modal-body" *ngFor="let detail of moviedetail">
                         <div class="form-group">
                           <label>Name</label>
-                          <input
-                            type="text"
-                            value="{{ detail.name }}"
-                            class="form-control"
-                            disabled
-                          />
+                          <input type="text" value="{{ detail.name }}" class="form-control" disabled />
                         </div>
-                        <img
-                          src="{{ detail.image }}"
-                          class="img-thumbnail"
-                          style="
+                        <img src="{{ detail.image }}" class="img-thumbnail" style="
                             width: 80%;
                             margin: 0 auto;
                             display: block;
                             margin-top: 2rem;
-                          "
-                        />
+                          " />
                         <div class="form-group" style="margin-top: 2rem">
                           <label>Age</label>
-                          <input
-                            type="text"
-                            value="{{ detail.age }}"
-                            class="form-control"
-                            disabled
-                          />
+                          <input type="text" value="{{ detail.age }}" class="form-control" disabled />
                         </div>
                         <div class="form-group" style="margin-top: 2rem">
                           <label>Release</label>
-                          <input
-                            type="calendar"
-                            value="{{ detail.release }}"
-                            class="form-control"
-                            disabled
-                          />
+                          <input type="calendar" value="{{ detail.release }}" class="form-control" disabled />
                         </div>
                         <div class="form-group" style="margin-top: 2rem">
                           <label>Type</label>
-                          <input
-                            type="text"
-                            value="{{ detail.type }}"
-                            class="form-control"
-                            disabled
-                          />
+                          <input type="text" value="{{ detail.type }}" class="form-control" disabled />
                         </div>
                         <div class="form-group" style="margin-top: 2rem">
                           <label>Amount</label>
-                          <input
-                            type="text"
-                            value="{{ detail.amount }}"
-                            class="form-control"
-                            disabled
-                          />
+                          <input type="text" value="{{ detail.amount }}" class="form-control" disabled />
                         </div>
                         <div class="form-group" style="margin-top: 2rem">
                           <label>Description</label>
-                          <textarea
-                            value="{{ detail.description }}"
-                            class="form-control"
-                            rows="4"
-                            disabled
-                          ></textarea>
+                          <textarea value="{{ detail.description }}" class="form-control" rows="4" disabled></textarea>
                         </div>
                       </div>
                       <div class="modal-footer">
-                        <button
-                          type="button"
-                          class="btn btn-secondary"
-                          data-mdb-dismiss="modal"
-                        >
+                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
                           Close
                         </button>
                         <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
@@ -637,17 +404,12 @@
                 </div>
               </td>
               <td>
-                <button
-                  (click)="approve(j._id)"
-                  type="button"
-                  class="btn btn-link btn-sm btn-rounded"
-                  style="
+                <button (click)="approve(j._id)" type="button" class="btn btn-link btn-sm btn-rounded" style="
                     font-size: 1rem;
                     color: black;
                     background: transparent;
                     font-weight: bolder;
-                  "
-                >
+                  ">
                   {{ j.buyout == true ? "✖" : "✔" }}
                 </button>
               </td>
@@ -656,22 +418,13 @@
         </table>
       </section>
     </div>
-    <div
-      class="tab-pane fade"
-      id="ex2-pills-4"
-      role="tabpanel"
-      aria-labelledby="ex2-tab-4"
-    >
-      <div
-        style="
+    <div class="tab-pane fade" id="ex2-pills-4" role="tabpanel" aria-labelledby="ex2-tab-4">
+      <div style="
           display: block;
           margin: 0 auto 2rem auto;
           text-align: center;
           width: 40%;
-        "
-        [ngClass]="className1"
-        role="alert"
-      >
+        " [ngClass]="className1" role="alert">
         {{ message }}
       </div>
       <section id="seats">
@@ -688,55 +441,31 @@
         </ul>
         <div class="movie-container">
           <div class="seatssuper" *ngFor="let k of normal">
-            <a
-              title="{{ k.Seat }}"
-              *ngIf="k.available == false"
-              (click)="seatbook(k._id)"
-              ><div class="seats"></div
-            ></a>
-            <a
-              title="{{ k.Seat }}"
-              *ngIf="k.available == true"
-              (click)="seatbook(k._id)"
-              ><div style="background-color: white" class="seats"></div
-            ></a>
+            <a title="{{ k.Seat }}" *ngIf="k.available == false" (click)="seatbook(k._id)">
+              <div class="seats"></div>
+            </a>
+            <a title="{{ k.Seat }}" *ngIf="k.available == true" (click)="seatbook(k._id)">
+              <div style="background-color: white" class="seats"></div>
+            </a>
           </div>
         </div>
         <div class="premium-container">
           <div class="seatspremium" *ngFor="let m of premium">
-            <a
-              title="{{ m.Seat }}"
-              *ngIf="m.available == false"
-              (click)="seatbook(m._id)"
-              ><div class="seats1"></div
-            ></a>
-            <a
-              title="{{ m.Seat }}"
-              *ngIf="m.available == true"
-              (click)="seatbook(m._id)"
-              ><div style="background-color: white" class="seats"></div
-            ></a>
+            <a title="{{ m.Seat }}" *ngIf="m.available == false" (click)="seatbook(m._id)">
+              <div class="seats1"></div>
+            </a>
+            <a title="{{ m.Seat }}" *ngIf="m.available == true" (click)="seatbook(m._id)">
+              <div style="background-color: white" class="seats"></div>
+            </a>
           </div>
         </div>
       </section>
     </div>
-    <div
-      class="tab-pane fade"
-      id="ex2-pills-5"
-      role="tabpanel"
-      aria-labelledby="ex2-tab-5"
-    >
+    <div class="tab-pane fade" id="ex2-pills-5" role="tabpanel" aria-labelledby="ex2-tab-5">
       <div class="input-group">
         <div class="form-outline" style="margin: 0">
-          <input
-            type="search"
-            id="form1"
-            class="form-control"
-            [(ngModel)]="searchbar"
-          />
-          <label class="form-label" for="form1" style="margin-left: 0px"
-            >Search</label
-          >
+          <input type="search" id="form1" class="form-control" [(ngModel)]="searchbar" />
+          <label class="form-label" for="form1" style="margin-left: 0px">Search</label>
           <div class="form-notch">
             <div class="form-notch-leading" style="width: 9px"></div>
             <div class="form-notch-middle" style="width: 47.2px"></div>
@@ -748,22 +477,13 @@
         </button>
       </div>
       <div class="row">
-        <div
-          class="col-xl-6 mb-4"
-          *ngFor="let e of userDetails | filter : searchbar"
-        >
-          <div
-            class="card"
-            style="
+        <div class="col-xl-6 mb-4" *ngFor="let e of userDetails | filter : searchbar">
+          <div class="card" style="
               box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
                 rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-            "
-          >
+            ">
             <div class="card-body">
-              <div
-                class="d-flex justify-content-between align-items-center"
-                style="width: 100%"
-              >
+              <div class="d-flex justify-content-between align-items-center" style="width: 100%">
                 <div class="d-flex align-items-center">
                   <div class="ms-3">
                     <p class="fw-bold mb-1">Name: {{ e.name }}</p>
@@ -776,24 +496,13 @@
                 </div>
                 <span class="badge rounded-pill badge-success">{{
                   e.order
-                }}</span>
+                  }}</span>
               </div>
             </div>
-            <div
-              class="card-footer border-0 bg-light p-2 d-flex justify-content-around"
-            >
-              <a
-                class="btn btn-link m-0 text-reset"
-                role="button"
-                data-ripple-color="primary"
-                >Seats: {{ e.seat }}</a
-              >
-              <a
-                class="btn btn-link m-0 text-reset"
-                role="button"
-                data-ripple-color="primary"
-                ><i class="fa-solid fa-sack-dollar"></i>₹ {{ e.total }}</a
-              >
+            <div class="card-footer border-0 bg-light p-2 d-flex justify-content-around">
+              <a class="btn btn-link m-0 text-reset" role="button" data-ripple-color="primary">Seats: {{ e.seat }}</a>
+              <a class="btn btn-link m-0 text-reset" role="button" data-ripple-color="primary"><i
+                  class="fa-solid fa-sack-dollar"></i>₹ {{ e.total }}</a>
             </div>
           </div>
         </div>
@@ -802,3 +511,60 @@
   </div>
   <!-- Pills content -->
 </section>
+<div class="modal top fade" id="exampleModal18" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  data-mdb-backdrop="true" data-mdb-keyboard="true">
+  <div class="modal-dialog modal-xl ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Notifications</h5>
+        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="notification">
+          <div id="notification" role="alert" *ngFor="let wizard of notificationarray" class="{{wizard.type}}">
+            {{wizard.message}}
+          </div>
+        </div>
+        <div class="input-group" id="message">
+          <div id="search-autocomplete" class="form-outline">
+            <input type="search" id="form1" class="form-control autocomplete-input" role="combobox"
+              [(ngModel)]="messagenotification" aria-expanded="false" aria-owns="autocomplete-dropdown-358464"
+              aria-haspopup="true" autocomplete="off">
+            <label class="form-label autocomplete-label" for="form1" style="margin-left: 0px;">Send
+              Notifications</label>
+            <div class="form-notch">
+              <div class="form-notch-leading" style="width: 9px;"></div>
+              <div class="form-notch-middle" style="width: 46.4px;"></div>
+              <div class="form-notch-trailing"></div>
+            </div>
+          </div>
+          <button type="button" (click)="sendNotification()" class="btn btn-primary" fdprocessedid="kdbo9i">
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </div>
+        <div class="text-center">
+          <div class=" btn-group">
+            <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off"
+              value="alert alert-primary" [(ngModel)]="typenotification" checked />
+            <label class="btn btn-secondary" for="option1">General</label>
+
+            <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off"
+              value="alert alert-warning" [(ngModel)]="typenotification" />
+            <label class="btn btn-secondary" for="option2">Warning</label>
+
+            <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off"
+              value="alert alert-secondary" [(ngModel)]="typenotification" />
+            <label class="btn btn-secondary" for="option3">Alert</label>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+          Close
+        </button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>

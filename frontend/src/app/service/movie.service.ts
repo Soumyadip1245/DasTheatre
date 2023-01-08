@@ -8,58 +8,61 @@ import { Observable } from 'rxjs';
 export class MovieService {
 
   constructor(private http: HttpClient) { }
-  getAllMovies(){
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/movies')
+  getAllMovies() {
+    return this.http.get<any>('http://localhost:8080/movies/movies')
   }
-  getMovieById(id:any){
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/toggle/'+id)
+  getMovieById(id: any) {
+    return this.http.get<any>('http://localhost:8080/movies/toggle/' + id)
   }
-  updateCheckout(id:any,data:any){
-    return this.http.put('https://theatre-backend.vercel.app/movies/updateCheckout/'+id,data)
+  updateCheckout(id: any, data: any) {
+    return this.http.put('http://localhost:8080/movies/updateCheckout/' + id, data)
   }
-  deleteMovie(data:any):Observable<any>{
-    return this.http.delete('https://theatre-backend.vercel.app/movies/delete/'+data)
+  deleteMovie(data: any): Observable<any> {
+    return this.http.delete('http://localhost:8080/movies/delete/' + data)
   }
-  addMovies(data:any):Observable<any>{
-    return this.http.post('https://theatre-backend.vercel.app/movies/addmovies',data)
+  addMovies(data: any): Observable<any> {
+    return this.http.post('http://localhost:8080/movies/addmovies', data)
   }
-  updateMovie(id:any,data:any):Observable<any>{
-    return this.http.put('https://theatre-backend.vercel.app/movies/edit/'+id,data)
+  updateMovie(id: any, data: any): Observable<any> {
+    return this.http.put('http://localhost:8080/movies/edit/' + id, data)
   }
-  buyouttrue(){
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/sort')
+  buyouttrue() {
+    return this.http.get<any>('http://localhost:8080/movies/sort')
   }
-  getNormal(){
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/normal')
+  getNormal() {
+    return this.http.get<any>('http://localhost:8080/movies/normal')
   }
-  getPremium(){
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/premium')
+  getPremium() {
+    return this.http.get<any>('http://localhost:8080/movies/premium')
   }
-  getSuper(){
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/super')
+  getSuper() {
+    return this.http.get<any>('http://localhost:8080/movies/super')
   }
-  editAvailable(id: any,data: any){
-    return this.http.put('https://theatre-backend.vercel.app/movies/updateAvailable/'+id,data)
+  editAvailable(id: any, data: any) {
+    return this.http.put('http://localhost:8080/movies/updateAvailable/' + id, data)
   }
-  resetAvailable(id: any,data: any){
-    return this.http.put('https://theatre-backend.vercel.app/movies/resetAvailable/'+id,data)
+  resetAvailable(id: any, data: any) {
+    return this.http.put('http://localhost:8080/movies/resetAvailable/' + id, data)
   }
-  getSeat(id:any){
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/seat/'+id)
+  getSeat(id: any) {
+    return this.http.get<any>('http://localhost:8080/movies/seat/' + id)
   }
-  getDetails(){
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/details')
+  getDetails() {
+    return this.http.get<any>('http://localhost:8080/movies/details')
   }
-  addDetails(data:any){
-    return this.http.post('https://theatre-backend.vercel.app/movies/addDetails',data)
+  addDetails(data: any) {
+    return this.http.post('http://localhost:8080/movies/addDetails', data)
   }
-  searchBar(name:any){
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/searchbar/'+name)
+  searchBar(name: any) {
+    return this.http.get<any>('http://localhost:8080/movies/searchbar/' + name)
   }
-  sendMail(ob:any){
-    return this.http.post('https://theatre-backend.vercel.app/movies/sendmails',ob)
+  sendMail(ob: any) {
+    return this.http.post('http://localhost:8080/movies/sendmails', ob)
   }
-  getMovie(id:any){
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/viewMovie/'+id)
+  getMovie(id: any) {
+    return this.http.get<any>('http://localhost:8080/movies/viewMovie/' + id)
+  }
+  sendMessage(data: any): Observable<any> {
+    return this.http.post('http://localhost:8080/auth/sendMessage', data)
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -7,12 +8,29 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
-  constructor(private router: Router) { }
+  profiledata: any[] = []
+  className = 'btn btn-primary'
+  className2 = 'd-none'
+  constructor(private router: Router, private auth: AuthService) { }
 
   ngOnInit(): void {
   }
-  logout(){
+  close() {
+    this.profiledata = []
+    this.className = 'btn btn-primary'
+  }
+  profileGet() {
+
+    this.className = 'd-none'
+    this.auth.profile().subscribe((a) => {
+      if (a.success) {
+        this.profiledata.push(a.data)
+      }
+      else {
+      }
+    })
+  }
+  logout() {
     localStorage.clear()
     this.router.navigate(['/authentication'])
   }

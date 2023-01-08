@@ -3,7 +3,7 @@ const Movies = require('../models/movies')
 const Seats = require('../models/seats')
 const Booking = require('../models/booking')
 const nodemailer = require('nodemailer')
-
+const Messages = require('../models/message')
 var ObjectId = require('mongoose').Types.ObjectId;
 router.get('/movies',(req,res)=>{
     Movies.find((err,docs)=>{
@@ -246,10 +246,8 @@ router.post('/sendmails', async(req,res,next)=>{
         // verify connection configuration
         transporter.verify(function (error, success) {
             if (error) {
-                console.log(error);
                 reject(error);
             } else {
-                console.log("Server is ready to take our messages");
                 resolve(success);
             }
         });
@@ -435,10 +433,8 @@ router.post('/sendmails', async(req,res,next)=>{
         // send mail
         transporter.sendMail(mailData, (err, info) => {
             if (err) {
-                console.error(err);
                 reject(err);
             } else {
-                console.log(info);
                 resolve(info);
             }
         });

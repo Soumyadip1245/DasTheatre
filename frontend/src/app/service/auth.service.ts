@@ -7,64 +7,77 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  authenticationvalue:boolean = true
+  authenticationvalue: boolean = true
   constructor(private http: HttpClient) { }
-  signup(data:any):Observable<any>{
-    return this.http.post('https://theatre-backend.vercel.app/auth/register',data)
+  signup(data: any): Observable<any> {
+    return this.http.post('http://localhost:8080/auth/register', data)
   }
-  login(data:any):Observable<any>{
-    return this.http.post('https://theatre-backend.vercel.app/auth/login',data)
+  login(data: any): Observable<any> {
+    return this.http.post('http://localhost:8080/auth/login', data)
   }
-  profile():Observable<any>{
+  profile(): Observable<any> {
     let headers = {
-      'Authorization': "Bearer "+localStorage.getItem('token')
+      'Authorization': "Bearer " + localStorage.getItem('token')
     }
-    return this.http.get<any>("https://theatre-backend.vercel.app/auth/profile",{headers: headers})
-   
+    return this.http.get<any>("http://localhost:8080/auth/profile", { headers: headers })
+
   }
-  adminauthorise(){
-    return this.http.get<any>('https://theatre-backend.vercel.app/auth/admin')
+  adminauthorise() {
+    return this.http.get<any>('http://localhost:8080/auth/admin')
   }
-  FetchdataById(id:any){
-    return this.http.get<any>('https://theatre-backend.vercel.app/auth/toggle/'+id)
+  FetchdataById(id: any) {
+    return this.http.get<any>('http://localhost:8080/auth/toggle/' + id)
   }
-  updateItem(id:any,data:any){
-    return this.http.put('https://theatre-backend.vercel.app/auth/update/'+id,data)
+  updateItem(id: any, data: any) {
+    return this.http.put('http://localhost:8080/auth/update/' + id, data)
   }
-  editForm(id:any,data:any){
-    return this.http.put('https://theatre-backend.vercel.app/auth/editUser/'+id,data)
+  editForm(id: any, data: any) {
+    return this.http.put('http://localhost:8080/auth/editUser/' + id, data)
   }
-  deleteForm(id:any){
-    return this.http.delete('https://theatre-backend.vercel.app/auth/deleteUser/'+id)
+  deleteForm(id: any) {
+    return this.http.delete('http://localhost:8080/auth/deleteUser/' + id)
   }
-  addForm(data:any){
-    return this.http.post('https://theatre-backend.vercel.app/auth/postdata',data)
+  addForm(data: any) {
+    return this.http.post('http://localhost:8080/auth/postdata', data)
   }
-  checkoutData(){
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/checkout')
+  checkoutData() {
+    return this.http.get<any>('http://localhost:8080/movies/checkout')
   }
-  getBuyoutBuyId(id:any){
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/toggle/'+id)
+  getBuyoutBuyId(id: any) {
+    return this.http.get<any>('http://localhost:8080/movies/toggle/' + id)
   }
-  updateCheckout(id:any,data:any){
-    return this.http.put('https://theatre-backend.vercel.app/movies/update/'+id,data)
+  updateCheckout(id: any, data: any) {
+    return this.http.put('http://localhost:8080/movies/update/' + id, data)
   }
-  getMovieById(data:any){
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/toggle/'+data)
+  getMovieById(data: any) {
+    return this.http.get<any>('http://localhost:8080/movies/toggle/' + data)
   }
-  setToken(data:any){
-    localStorage.setItem("auth",data)
+  forget(data: any): Observable<any> {
+    return this.http.post('http://localhost:8080/auth/forgetemail', data)
   }
-  getToken(){
-    return localStorage.getItem("auth")
+  resetPassword(id: any, data: any): Observable<any> {
+    return this.http.put('http://localhost:8080/auth/editPassword/' + id, data)
   }
-  isLogged(){
-    return this.getToken() != null
+  LoggedIn() {
+    return !localStorage.getItem("token")
   }
-  forget(data:any):Observable<any>{
-    return this.http.post('https://theatre-backend.vercel.app/auth/forgetemail',data)
+  getTypeTokenGet() {
+    var Token = localStorage.getItem("token") || ''
+    var split = Token.split('.')[1]
+    var value = atob(split)
+    var jsontype = JSON.parse(value)
+    return jsontype.type
   }
-  resetPassword(id:any,data:any):Observable<any>{
-    return this.http.put('https://theatre-backend.vercel.app/auth/editPassword/'+id,data)
+  getMessage(): Observable<any> {
+    return this.http.get<any>('http://localhost:8080/auth/getMessage')
+  }
+  markRead(id: any, data: any): Observable<any> {
+    return this.http.put('http://localhost:8080/auth/readMessage/' + id, data)
+  }
+  sendNotification(data: any): Observable<any> {
+    return this.http.post('http://localhost:8080/auth/postNotification', data)
+  }
+  getNotification(): Observable<any> {
+    return this.http.get<any>('http://localhost:8080/auth/getNotification')
   }
 }

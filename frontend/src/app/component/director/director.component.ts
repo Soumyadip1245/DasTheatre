@@ -13,14 +13,22 @@ export class DirectorComponent implements OnInit {
   id: any;
   addform!: FormGroup;
   editform!: FormGroup;
+  messageform!: FormGroup
   moviedata: any;
-  message:any
+  message: any
   className = 'd-none'
+  className1 = 'd-none'
+  message1 = ''
   constructor(
     private auth: AuthService,
     private mo: MovieService,
     private fb: FormBuilder
   ) {
+    this.messageform = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', Validators.required],
+      message: ['', Validators.required]
+    })
     this.addform = this.fb.group({
       name: ['', Validators.required],
       image: ['', Validators.required],
@@ -52,12 +60,10 @@ export class DirectorComponent implements OnInit {
   }
   Checkout(data: any) {
     this.mo.getMovieById(data).subscribe((a: any) => {
-      console.log(a.checkout);
       var ob = {
         checkout: !a.checkout,
       };
       this.mo.updateCheckout(data, ob).subscribe((b: any) => {
-        console.log(b);
         this.getAll();
       });
     });
@@ -71,34 +77,34 @@ export class DirectorComponent implements OnInit {
   }
   deleteMovie() {
     this.mo.deleteMovie(this.id).subscribe((a) => {
-      if(a.success){
+      if (a.success) {
         this.getAll();
         this.className = 'alert alert-success'
-      this.message = a.message
+        this.message = a.message
       }
-      else{
+      else {
         this.getAll();
         this.className = 'alert alert-warning'
-      this.message = a.message
+        this.message = a.message
       }
     });
-    setTimeout(()=>{
+    setTimeout(() => {
       this.className = 'd-none'
       this.message = ''
       this.getAll();
       this.moviedata = ' ';
       this.id = ' ';
-    },2000)
+    }, 2000)
   }
   addMovies() {
-    this.mo.addMovies(this.addform.value).subscribe((res)=>{
-      if(res.success){
+    this.mo.addMovies(this.addform.value).subscribe((res) => {
+      if (res.success) {
         this.className = 'alert alert-success'
         this.message = res.message
         this.addform.reset()
         this.getAll()
       }
-      else{
+      else {
         this.className = 'alert alert-danger'
         this.message = res.message
         this.addform.reset()
@@ -106,10 +112,10 @@ export class DirectorComponent implements OnInit {
 
       }
     })
-    setTimeout(()=>{
+    setTimeout(() => {
       this.className = 'd-none'
       this.message = ''
-    },2000)
+    }, 2000)
   }
   editMovies() {
     this.editform = this.fb.group({
@@ -124,25 +130,47 @@ export class DirectorComponent implements OnInit {
   }
   savemovie() {
     this.mo.updateMovie(this.id, this.editform.value).subscribe((res) => {
-      if(res.success){
+      if (res.success) {
         this.getAll();
         this.editform.reset();
         this.className = 'alert alert-success'
-      this.message = res.message
+        this.message = res.message
       }
-      else{
+      else {
         this.getAll();
         this.editform.reset();
         this.className = 'alert alert-warning'
-      this.message = res.message
+        this.message = res.message
       }
-      setTimeout(()=>{
-        
-      this.moviedata = ' ';
-      this.id = ' ';
-      this.editform.reset();
-      },2000)
-      
+      setTimeout(() => {
+
+        this.moviedata = ' ';
+        this.id = ' ';
+        this.className = 'd-none'
+        this.editform.reset();
+      }, 2000)
+
     });
+  }
+  sendMessage() {
+    this.mo.sendMessage(this.messageform.value).subscribe((res) => {
+      if (res.success) {
+        this.className1 = 'alert alert-success'
+        this.message1 = res.message
+        setTimeout(() => {
+          this.className1 = 'd-none'
+          this.message = ''
+        }, 2000)
+        this.messageform.reset()
+      }
+      else {
+        this.className1 = 'alert alert-warning'
+        this.message1 = res.message
+        setTimeout(() => {
+          this.className1 = 'd-none'
+          this.message = ''
+        }, 2000)
+      }
+    })
   }
 }

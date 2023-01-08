@@ -27,6 +27,11 @@ export class AdminComponent implements OnInit {
   userDetails: any[] = [];
   searchbar: any;
   moviedetail: any[] = [];
+  messagearray: any[] = []
+  messagenotification: any
+  typenotification: any
+  typearray: any[] = []
+  notificationarray: any[] = []
   constructor(
     private fb: FormBuilder,
     private route: Router,
@@ -58,6 +63,9 @@ export class AdminComponent implements OnInit {
     this.checkoutData();
     this.getSeats();
     this.getDetails();
+    this.auth.getTypeTokenGet()
+    this.getMessage()
+    this.getNotification()
   }
   refreshData() {
     this.auth.adminauthorise().subscribe((data) => {
@@ -79,8 +87,6 @@ export class AdminComponent implements OnInit {
   }
   editForm(data: any) {
     this.auth.FetchdataById(data).subscribe((res: any) => {
-      console.warn(res);
-      console.log('Get Data: ' + res);
       this.editform = this.fb.group({
         id: [res._id, Validators.required],
         name: [res.name, Validators.required],
@@ -91,7 +97,6 @@ export class AdminComponent implements OnInit {
     this.id = data;
   }
   EditChanges() {
-    console.log('A: ' + this.editform.value);
     this.auth.editForm(this.id, this.editform.value).subscribe((a: any) => {
       if (a.success) {
         this.className = 'alert alert-success';
@@ -150,9 +155,7 @@ export class AdminComponent implements OnInit {
     });
   }
   approve(data: any) {
-    console.log(data);
     this.auth.getBuyoutBuyId(data).subscribe((res: any) => {
-      console.log('ok: ' + res.buyout);
       var ob = {
         buyout: !res.buyout,
       };
@@ -192,7 +195,56 @@ export class AdminComponent implements OnInit {
     this.moviedetail = [];
     this.mo.getMovie(data).subscribe((a: any) => {
       this.moviedetail.push(a);
-      console.warn(this.moviedetail);
     });
+  }
+  getMessage() {
+    this.auth.getMessage().subscribe((res) => {
+
+      if (res.success) {
+        this.messagearray = res.data
+      }
+      else {
+        this.messagearray = []
+        // this.getMessage()
+      }
+    })
+  }
+  updateMessage(id: any, data: any) {
+    var ob = {
+      "send": data
+    }
+    this.auth.markRead(id, ob).subscribe((res) => {
+      if (res.success) {
+        this.getMessage()
+        this.getMessage()
+      }
+      else {
+        this.getMessage()
+        this.getMessage()
+      }
+    })
+  }
+  sendNotification() {
+    var ob = {
+      "message": this.messagenotification,
+      "type": this.typenotification
+    }
+    this.auth.sendNotification(ob).subscribe((res) => {
+      if (res.success) {
+        this.getNotification()
+        this.messagenotification = ''
+        this.typenotification = ''
+      }
+      else {
+      }
+    })
+  }
+  getNotification() {
+    this.auth.getNotification().subscribe((res) => {
+      this.typearray = res.data
+      this.notificationarray = this.typearray.reverse()
+      if (res.success) {
+      }
+    })
   }
 }

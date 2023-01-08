@@ -33,11 +33,10 @@ export class AuthenticationComponent implements OnInit {
   passwordid: any;
   validatebutton = 'btn btn-primary';
   passwordbutton = 'd-none';
-  employeetext :any
+  employeetext: any
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
-    private route: ActivatedRoute,
     private router: Router
   ) {
     this.loginform = this.fb.group({
@@ -50,17 +49,16 @@ export class AuthenticationComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required],
       type: ['', Validators.required],
+      image: ['', Validators.required]
     });
   }
 
   ngOnInit(): void {
-    console.log(this.author);
   }
   login() {
     this.auth.login(this.loginform.value).subscribe((res) => {
       if (res.success) {
         localStorage.setItem('token', res.token);
-        this.auth.setToken('tokenforprotectedroute');
         this.getProfile();
       } else {
         this.className = 'alert alert-danger';
@@ -126,14 +124,11 @@ export class AuthenticationComponent implements OnInit {
     });
   }
   validateemail() {
-    console.warn(this.emailtext);
     var ob = {
       "id": this.emailtext,
     };
     this.auth.forget(ob).subscribe((res) => {
-      console.log(res.success);
       if (res.success) {
-        console.log(res);
         this.alertforget = 'alert alert-success';
         this.forgetmessage = res.message;
         this.passwordneww = 'form-outline';

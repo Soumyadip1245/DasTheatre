@@ -6,13 +6,15 @@ import { AuthService } from '../service/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class EmployeeGuard implements CanActivate {
   constructor(private auth: AuthService, private router: Router) { }
   canActivate() {
-    if (this.auth.LoggedIn()) {
-      this.router.navigate(['/authentication'])
-      return false
+    var type = this.auth.getTypeTokenGet()
+    if (type == 'Employee') {
+      return true
     }
-    return true
+    this.router.navigate(['/error'])
+    return false;
   }
+
 }

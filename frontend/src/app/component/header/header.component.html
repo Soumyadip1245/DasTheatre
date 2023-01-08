@@ -4,25 +4,12 @@
   <div class="container">
     <!-- Navbar brand -->
     <a routerLink="/welcome">
-      <img
-        src="https://i.imgur.com/0rjUN5f.png"
-        height="40"
-        alt="MDB Logo"
-        loading="lazy"
-        style="margin-top: -1px"
-      />
+      <img src="https://i.imgur.com/0rjUN5f.png" height="40" alt="MDB Logo" loading="lazy" style="margin-top: -1px" />
     </a>
 
     <!-- Toggle button -->
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-mdb-toggle="collapse"
-      data-mdb-target="#navbarButtonsExample"
-      aria-controls="navbarButtonsExample"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarButtonsExample"
+      aria-controls="navbarButtonsExample" aria-expanded="false" aria-label="Toggle navigation">
       <i class="fas fa-bars"></i>
     </button>
 
@@ -37,25 +24,64 @@
       <!-- Left links -->
 
       <div class="d-flex align-items-center">
-        <button
-          type="button"
-          class="btn btn-link px-3 me-2"
-          routerLink="/authentication"
-        >
-          Login
-        </button>
-        <button
-          type="button"
-          class="btn btn-primary me-3"
-          routerLink="/authentication"
-        >
+        <button type="button" class="btn btn-primary me-3" routerLink="/authentication">
           Sign up for free
         </button>
-        <a (click)="logout()"
-          class="btn btn-dark px-3"
-          role="button"
-          ><i class="fa-solid fa-right-from-bracket"></i></a>
+        <a (click)="logout()" class="btn btn-dark px-3" role="button"><i class="fa-solid fa-right-from-bracket"></i></a>
+        <button (click)="profileGet();close();" style="margin-left: 10px" type="button"
+          class="btn btn-primary btn-floating" data-mdb-toggle="modal" data-mdb-target="#exampleModal15"><i
+            class="fa-solid fa-bars"></i></button>
+        <div class="modal right fade" id="exampleModal15" tabindex="-1" aria-labelledby="exampleModalLabel"
+          aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="false">
+          <div class="modal-dialog modal-side modal-top-right ">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Profile </h5>
+                <button type="button" (click)="close()" class="btn-close" data-mdb-dismiss="modal"
+                  aria-label="Close"></button>
+              </div>
+              <!-- <button style="width: 20%;margin: 1rem auto" (click)="profileGet()" type="button" [ngClass]="className">Get Profile</button> -->
+              <ng-container *ngIf="profiledata.length < 1">
+                <div class="modal-body">
+                  <img id="noprofile" src="https://i.pinimg.com/originals/5d/35/e3/5d35e39988e3a183bdc3a9d2570d20a9.gif"
+                    alt="">
+                </div>
+              </ng-container>
+              <ng-container *ngIf="profiledata.length > 0">
+                <div class="modal-body">
+                  <div class="row text-center">
+                    <div class="col-md-4 mb-5 mb-md-0">
+                      <div class="card testimonial-card" *ngFor="let i of profiledata">
+                        <div class="card-up" style="background-color: #9d789b;"></div>
+                        <div class="avatar mx-auto bg-white">
+                          <img src="{{i.image}}" class="rounded-circle img-fluid" />
+                        </div>
+                        <div class="card-body">
+                          <h4 class="mb-4">{{i.name}}</h4>
+                          <hr />
+                          <p style="text-align: left;" class="dark-grey-text mt-4">
+                            <b>Role: </b>{{i.type}}<br>
+                            <b>Email: </b>{{i.email}}<br>
+                            <b>Phone: </b>{{i.phone}}<br>
+                            <b>Code: </b>{{i._id}}<br>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+
+              <div class="modal-footer">
+                <button (click)="close()" type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
     </div>
     <!-- Collapsible wrapper -->
   </div>

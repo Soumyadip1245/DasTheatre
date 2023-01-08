@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {Router} from '@angular/router'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './component/header/header.component';
@@ -13,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DirectorComponent } from './component/director/director.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { ErrorpageComponent } from './component/errorpage/errorpage.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,15 +22,16 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     AdminComponent,
     UserComponent,
     EmployeeComponent,
-    DirectorComponent
+    DirectorComponent,
+    ErrorpageComponent
   ],
-  imports: [BrowserModule, 
-    AppRoutingModule, 
-    FormsModule, 
+  imports: [BrowserModule,
+    AppRoutingModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     Ng2SearchPipeModule],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

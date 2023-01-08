@@ -8,11 +8,11 @@ import { AuthService } from 'src/app/service/auth.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  data: any[]=[]
+  data: any[] = []
   constructor(private auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    
+
   }
-  
+
 }

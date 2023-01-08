@@ -3,7 +3,9 @@ const nodemailer = require('nodemailer')
 const bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 const User = require('../models/user')
-const loginAuth = require('./login')
+const loginAuth = require('./login');
+const message = require('../models/message');
+const notification = require('../models/notification')
 var ObjectId = require('mongoose').Types.ObjectId;
 router.post('/register',(req,res)=>{
     bcrypt.hash(req.body.password,10,(err,hash)=>{
@@ -13,7 +15,8 @@ router.post('/register',(req,res)=>{
                 phone: req.body.phone,
                 email: req.body.email,
                 password: hash,
-                type: req.body.type
+                type: req.body.type,
+                image: req.body.image
             })
             user.save().then(()=>{
                 res.json({success: true, message: "Account Created"})
@@ -34,7 +37,10 @@ router.post('/login',(req,res)=>{
         bcrypt.compare(req.body.password,user.password,(err,value)=>{
             if(value){
                 const payload = {
-                    userId: user._id
+                    userId: user._id,
+                    type: user.type,
+                    name: user.name,
+                    email: user.email
                 }
                 const token = jwt.sign(payload,"webBatch")
                 return res.json({success: true, token: token, message: "Login Successfull"})
@@ -62,6 +68,44 @@ router.get('/admin',(req,res)=>{
         if(!err){
             res.send(docs)
         }
+    })
+})
+router.post('/sendMessage',(req,res)=>{
+    var Message = new message({
+        name: req.body.name,
+        email: req.body.email,
+        message: req.body.message
+    })
+    Message.save().then(()=>{
+        res.json({success: true, message: "Message Send"})
+    }).catch(()=>{
+        res.json({success: false, message : "Error In Sending Message"})
+    })
+})
+router.get('/getMessage', (req,res)=>{
+    message.find({
+        "$or": [
+            {
+                "send": false
+            }
+        ]
+    }).exec().then((value)=>{
+        if(value.length < 1){
+            res.json({success: false, message : "No Messages"})
+        }
+        else{
+            res.json({success: true, message: "Message Retrived", data: value})
+        }
+    })
+})
+router.put('/readMessage/:id',(req,res)=>{
+    var ob = {
+        "send": !req.body.send 
+    }
+    message.findByIdAndUpdate(req.params.id, {$set: ob}).then(()=>{
+        res.json({success: true, message: "Message Marks As Read"})
+    }).catch(()=>{
+        res.json({success: false, message: "Message Not Updated With Read"})
     })
 })
 router.put('/update/:id', (req, res) => {
@@ -176,5 +220,26 @@ router.put('/editPassword/:id',(req,res)=>{
         })
     })
     
+})
+router.post('/postNotification',(req,res)=>{
+    var Notification = new notification({
+        "message": req.body.message,
+        "type": req.body.type
+    })
+    Notification.save().then(()=>{
+        res.json({success: true, message: "Alert Posted"})
+    }).catch(()=>{
+        res.json({success: false, message: "Alert Not Posted All Field Are Required"})
+    })
+})
+router.get('/getNotification',(req,res)=>{
+    notification.find().then((value)=>{
+        if(value < 1){
+            res.json({success: false, message: "No Notifications"})
+        }
+        else{
+            res.json({success: true, message: "Notification Fetched", data: value})
+        }
+    })
 })
 module.exports = router

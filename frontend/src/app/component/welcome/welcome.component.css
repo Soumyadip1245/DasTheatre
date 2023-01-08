@@ -1,14 +1,28 @@
-img{
+img {
+  display: block;
+  margin: auto;
+  width: 50%;
+  height: 50%;
+}
+
+.container-image {
+  padding: 1rem 4rem 4rem 4rem;
+  width: 80%;
+  margin: 0 auto;
+  height: 80%;
+  object-fit: cover;
+  /* background-color: #cff4fc; */
+}
+
+@media (max-width: 500px) {
+  img {
     display: block;
-    margin: 7rem auto;
-}
-.container-image{
-    background-color: #cff4fc;
-}
-@media (max-width: 500px){
-    img{
-        display: block;
-        margin: 7rem auto;
-        width: 100%;
-      }
+    width: 100%;
+  }
+
+  .container-image {
+    padding: 1rem;
+    width: 100%;
+    margin: 1rem auto;
+  }
 }

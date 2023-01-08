@@ -17,5 +17,5 @@ app.use(bodyParser.json())
 app.use('/auth',authRoute)
 app.use('/movies',moviesRoute)
 app.listen(port,()=>{
-    console.log(`Server running: `+port)
+    console.log(`Port: ${port}`)
 })
