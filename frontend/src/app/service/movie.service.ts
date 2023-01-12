@@ -3,66 +3,74 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MovieService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
   getAllMovies() {
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/movies')
+    return this.http.get<any>('http://localhost:8080/movies/movies');
   }
   getMovieById(id: any) {
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/toggle/' + id)
+    return this.http.get<any>('http://localhost:8080/movies/toggle/' + id);
   }
   updateCheckout(id: any, data: any) {
-    return this.http.put('https://theatre-backend.vercel.app/movies/updateCheckout/' + id, data)
+    return this.http.put(
+      'http://localhost:8080/movies/updateCheckout/' + id,
+      data
+    );
   }
   deleteMovie(data: any): Observable<any> {
-    return this.http.delete('https://theatre-backend.vercel.app/movies/delete/' + data)
+    return this.http.delete('http://localhost:8080/movies/delete/' + data);
   }
   addMovies(data: any): Observable<any> {
-    return this.http.post('https://theatre-backend.vercel.app/movies/addmovies', data)
+    return this.http.post('http://localhost:8080/movies/addmovies', data);
   }
   updateMovie(id: any, data: any): Observable<any> {
-    return this.http.put('https://theatre-backend.vercel.app/movies/edit/' + id, data)
+    return this.http.put('http://localhost:8080/movies/edit/' + id, data);
   }
   buyouttrue() {
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/sort')
+    return this.http.get<any>('http://localhost:8080/movies/sort');
   }
   getNormal() {
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/normal')
+    return this.http.get<any>('http://localhost:8080/movies/normal');
   }
   getPremium() {
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/premium')
+    return this.http.get<any>('http://localhost:8080/movies/premium');
   }
   getSuper() {
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/super')
+    return this.http.get<any>('http://localhost:8080/movies/super');
   }
   editAvailable(id: any, data: any) {
-    return this.http.put('https://theatre-backend.vercel.app/movies/updateAvailable/' + id, data)
+    return this.http.put(
+      'http://localhost:8080/movies/updateAvailable/' + id,
+      data
+    );
   }
   resetAvailable(id: any, data: any) {
-    return this.http.put('https://theatre-backend.vercel.app/movies/resetAvailable/' + id, data)
+    return this.http.put(
+      'http://localhost:8080/movies/resetAvailable/' + id,
+      data
+    );
   }
   getSeat(id: any) {
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/seat/' + id)
+    return this.http.get<any>('http://localhost:8080/movies/seat/' + id);
   }
   getDetails() {
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/details')
+    return this.http.get<any>('http://localhost:8080/movies/details');
   }
   addDetails(data: any) {
-    return this.http.post('https://theatre-backend.vercel.app/movies/addDetails', data)
+    return this.http.post('http://localhost:8080/movies/addDetails', data);
   }
   searchBar(name: any) {
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/searchbar/' + name)
+    return this.http.get<any>('http://localhost:8080/movies/searchbar/' + name);
   }
   sendMail(ob: any) {
-    return this.http.post('https://theatre-backend.vercel.app/movies/sendmails', ob)
+    return this.http.post('http://localhost:8080/movies/sendmails', ob);
   }
   getMovie(id: any) {
-    return this.http.get<any>('https://theatre-backend.vercel.app/movies/viewMovie/' + id)
+    return this.http.get<any>('http://localhost:8080/movies/viewMovie/' + id);
   }
   sendMessage(data: any): Observable<any> {
-    return this.http.post('https://theatre-backend.vercel.app/auth/sendMessage', data)
+    return this.http.post('http://localhost:8080/auth/sendMessage', data);
   }
 }
