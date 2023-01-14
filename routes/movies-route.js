@@ -5,42 +5,40 @@ const Booking = require('../models/booking')
 const nodemailer = require('nodemailer')
 const Messages = require('../models/message')
 var ObjectId = require('mongoose').Types.ObjectId;
-router.get('/movies',(req,res)=>{
-    Movies.find((err,docs)=>{
-        if(!err){
+router.get('/movies', (req, res) => {
+    Movies.find((err, docs) => {
+        if (!err) {
             res.send(docs)
         }
     })
 })
 router.put('/update/:id', (req, res) => {
-    
+
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id: ${req.params.id}`);
 
-    var ser ={
+    var ser = {
         buyout: req.body.buyout
     };
     Movies.findByIdAndUpdate(req.params.id, { $set: ser }, { new: true }, (err, doc) => {
-        if (!err) { res.send(doc); }
-        else { console.log('Error in Employee Update:' + JSON.stringify(err, undefined, 2)); }
+        if (!err) { res.send(doc); } else { console.log('Error in Employee Update:' + JSON.stringify(err, undefined, 2)); }
     })
 })
 router.put('/updateCheckout/:id', (req, res) => {
-    
+
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id: ${req.params.id}`);
 
-    var ser ={
+    var ser = {
         checkout: req.body.checkout
     };
     Movies.findByIdAndUpdate(req.params.id, { $set: ser }, { new: true }, (err, doc) => {
-        if (!err) { res.send(doc); }
-        else { console.log('Error in Employee Update:' + JSON.stringify(err, undefined, 2)); }
+        if (!err) { res.send(doc); } else { console.log('Error in Employee Update:' + JSON.stringify(err, undefined, 2)); }
     })
 })
 router.put('/edit/:id', (req, res) => {
 
-    var ser ={
+    var ser = {
         name: req.body.name,
         image: req.body.image,
         age: req.body.age,
@@ -50,11 +48,10 @@ router.put('/edit/:id', (req, res) => {
         description: req.body.description
     };
     Movies.findByIdAndUpdate(req.params.id, { $set: ser }, { new: true }, (err, doc) => {
-        if(err){
-            res.json({success:false, message: "All Field Are Required"})
-        }
-        else{
-            res.json({success:true,message: "Movie Updated"})
+        if (err) {
+            res.json({ success: false, message: "All Field Are Required" })
+        } else {
+            res.json({ success: true, message: "Movie Updated" })
         }
     })
 })
@@ -63,8 +60,7 @@ router.get('/toggle/:id', (req, res) => {
         return res.status(400).send(`No record with given id: ${req.params.id}`);
 
     Movies.findById(req.params.id, (err, doc) => {
-        if (!err) { res.send(doc); }
-        else { console.log('Error in Retrieving Service: ' + JSON.stringify(err, undefined, 2)); }
+        if (!err) { res.send(doc); } else { console.log('Error in Retrieving Service: ' + JSON.stringify(err, undefined, 2)); }
     })
 
 })
@@ -73,18 +69,16 @@ router.get('/viewMovie/:id', (req, res) => {
         return res.status(400).send(`No record with given id: ${req.params.id}`);
 
     Movies.findById(req.params.id, (err, doc) => {
-        if (!err) { res.send(doc); }
-        else { console.log('Error in Retrieving Service: ' + JSON.stringify(err, undefined, 2)); }
+        if (!err) { res.send(doc); } else { console.log('Error in Retrieving Service: ' + JSON.stringify(err, undefined, 2)); }
     })
 
 })
-router.delete('/delete/:id',(req,res)=>{
-    Movies.findByIdAndRemove(req.params.id,(err,doc)=>{
-        if(err){
-            res.json({success:false, message: "Select A Movie First"})
-        }
-        else{
-            res.json({success:true,message: "Movie Deleted"})
+router.delete('/delete/:id', (req, res) => {
+    Movies.findByIdAndRemove(req.params.id, (err, doc) => {
+        if (err) {
+            res.json({ success: false, message: "Select A Movie First" })
+        } else {
+            res.json({ success: true, message: "Movie Deleted" })
         }
     })
 })
@@ -99,75 +93,63 @@ router.post('/addmovies', (req, res) => {
         description: req.body.description
     });
     ser.save((err, doc) => {
-       if(err){
-        res.json({success:false,message: "All Field Are Needed"})
-       }
-       else{
-        res.json({success:true, message: "Movies Added"})
-       }
+        if (err) {
+            res.json({ success: false, message: "All Field Are Needed" })
+        } else {
+            res.json({ success: true, message: "Movies Added" })
+        }
     })
 })
-router.get('/sort', async (req,res)=>{
-    let data = await Movies.find(
-        {
-            "$or": [
-                {buyout: true}
-            ]
-        }
-    )
+router.get('/sort', async(req, res) => {
+    let data = await Movies.find({
+        "$or": [
+            { buyout: true }
+        ]
+    })
     res.send(data)
 })
-router.get('/checkout', async (req,res)=>{
-    let data = await Movies.find(
-        {
-            "$or": [
-                {checkout: true}
-            ]
-        }
-    )
+router.get('/checkout', async(req, res) => {
+    let data = await Movies.find({
+        "$or": [
+            { checkout: true }
+        ]
+    })
     res.send(data)
 })
-router.get('/normal', async (req,res)=>{
-    let data = await Seats.find(
-        {
-            "$or": [
-                {type: "normal"},{type: "super"}
-            ]
-        }
-    )
+router.get('/normal', async(req, res) => {
+    let data = await Seats.find({
+        "$or": [
+            { type: "normal" }, { type: "super" }
+        ]
+    })
     res.send(data)
 })
-router.get('/premium', async (req,res)=>{
-    let data = await Seats.find(
-        {
-            "$or": [
-                {type: "premium"}
-            ]
-        }
-    )
+router.get('/premium', async(req, res) => {
+    let data = await Seats.find({
+        "$or": [
+            { type: "premium" }
+        ]
+    })
     res.send(data)
 })
-router.get('/super', async (req,res)=>{
-    let data = await Seats.find(
-        {
-            "$or": [
-                {type: "super"}
-            ]
-        }
-    )
+router.get('/super', async(req, res) => {
+    let data = await Seats.find({
+        "$or": [
+            { type: "super" }
+        ]
+    })
     res.send(data)
 })
 router.put('/updateAvailable/:id', (req, res) => {
-    
+
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id: ${req.params.id}`);
 
-    var ser ={
+    var ser = {
         available: req.body.available
     };
     Seats.findByIdAndUpdate(req.params.id, { $set: ser }, { new: true }, (err, doc) => {
-        if (!err) { res.send(doc); }
-        else { console.log('Error in Employee Update:' + JSON.stringify(err, undefined, 2)); }
+        if (!err) { res.send(doc); } else { console.log('Error in Employee Update:' + JSON.stringify(err, undefined, 2)); }
     })
 })
 router.get('/seat/:id', (req, res) => {
@@ -175,19 +157,16 @@ router.get('/seat/:id', (req, res) => {
         return res.status(400).send(`No record with given id: ${req.params.id}`);
 
     Seats.findById(req.params.id, (err, doc) => {
-        if (!err) { res.send(doc); }
-        else { console.log('Error in Retrieving Service: ' + JSON.stringify(err, undefined, 2)); }
+        if (!err) { res.send(doc); } else { console.log('Error in Retrieving Service: ' + JSON.stringify(err, undefined, 2)); }
     })
 
 })
-router.get('/premium', async (req,res)=>{
-    let data = await Seats.find(
-        {
-            "$or": [
-                {type: "premium"}
-            ]
-        }
-    )
+router.get('/premium', async(req, res) => {
+    let data = await Seats.find({
+        "$or": [
+            { type: "premium" }
+        ]
+    })
     res.send(data)
 })
 router.post('/addDetails', (req, res) => {
@@ -202,28 +181,25 @@ router.post('/addDetails', (req, res) => {
         order: req.body.order
     });
     ser.save((err, doc) => {
-        if (!err) { res.send(doc); }
-        else { console.log('Error in Employee Save:' + JSON.stringify(err, undefined, 2)); }
+        if (!err) { res.send(doc); } else { console.log('Error in Employee Save:' + JSON.stringify(err, undefined, 2)); }
     })
 })
-router.get('/details',(req,res)=>{
-    Booking.find((err,docs)=>{
-        if(!err){
+router.get('/details', (req, res) => {
+    Booking.find((err, docs) => {
+        if (!err) {
             res.send(docs)
         }
     })
 })
-router.get('/searchbar/:key', async (req,res)=>{
-    let data = await Booking.find(
-        {
-            "$or": [
-                {name: req.params.key}
-            ]
-        }
-    )
+router.get('/searchbar/:key', async(req, res) => {
+    let data = await Booking.find({
+        "$or": [
+            { name: req.params.key }
+        ]
+    })
     res.send(data)
 })
-router.post('/sendmails', async(req,res,next)=>{
+router.post('/sendmails', async(req, res, next) => {
     var ob = {
         name: req.body.name,
         movie: req.body.movie,
@@ -244,7 +220,7 @@ router.post('/sendmails', async(req,res,next)=>{
     });
     await new Promise((resolve, reject) => {
         // verify connection configuration
-        transporter.verify(function (error, success) {
+        transporter.verify(function(error, success) {
             if (error) {
                 reject(error);
             } else {
@@ -253,10 +229,10 @@ router.post('/sendmails', async(req,res,next)=>{
         });
     });
     const mailData = {
-        from : 'bahubalicantlive@gmail.com',
+        from: 'bahubalicantlive@gmail.com',
         to: ob.email,
         subject: `Ticked For The Order Id: ${ob.order}`,
-       html: `<!DOCTYPE html>
+        html: `<!DOCTYPE html>
        <html lang="en">
        <head>
            <meta charset="UTF-8">
@@ -439,10 +415,48 @@ router.post('/sendmails', async(req,res,next)=>{
             }
         });
     });
-    
-    res.status(200).json({ status: "OK" });
-    
-}
-)  
 
+    res.status(200).json({ status: "OK" });
+
+})
+router.get('/getUserMovieAll', (req, res) => {
+    Movies.find().then((value) => {
+        res.json({ data: value })
+    })
+})
+router.get('/getUserActionAll', (req, res) => {
+    Movies.find({
+        $or: [{
+                "type": "Action"
+            },
+            {
+                "buyout": true
+            }
+        ]
+    }).then((value) => {
+        res.json({ data: value })
+    })
+})
+router.get('/getUserFictionAll', (req, res) => {
+    Movies.find({
+        $and: [{
+                "type": "Fiction"
+            },
+            {
+                "buyout": true
+            }
+        ]
+    }).then((value) => {
+        res.json({ data: value })
+    })
+})
+router.get('/getUserBuyoutAll', (req, res) => {
+    Movies.find({
+        $and: [{
+            "buyout": true
+        }]
+    }).then((value) => {
+        res.json({ data: value })
+    })
+})
 module.exports = router

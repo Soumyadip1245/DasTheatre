@@ -1,0 +1,26 @@
+<div class="nav-logo">
+    <img src="../assets//Screenshot_2023-01-14_154431-removebg-preview.png" alt="" class="logo">
+</div>
+<div class="banner-video">
+    <video src="../assets//Baahubali - India's Biggest Motion Picture _ SS Rajamouli I Prabhas, Rana Daggubati.mp4" [autoplay]="true" [muted]="true" [loop]="true"></video>
+</div>
+<div class="row">
+    <h2>All Movies</h2>
+    <div class="row-images" id="style-4">
+        <img src="{{k.image}}" alt=" " class=" row-image image-large " *ngFor="let k of buyout ">
+    </div>
+</div>
+<div class="row ">
+    <h2>Action</h2>
+    <div class="row-images" id="style-4">
+        <img src="{{j.image}} " alt=" " class="row-image image-medium " *ngFor="let j of action ">
+
+    </div>
+</div>
+<div class="row ">
+    <h2>Fiction</h2>
+    <div class="row-images" id="style-4">
+        <img src="{{i.image}} " alt=" " class="row-image image-medium " *ngFor="let i of fiction ">
+
+    </div>
+</div>
